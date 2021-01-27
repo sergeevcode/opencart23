@@ -52,6 +52,7 @@
           						<?php foreach ($informations as $information) { ?>
                                 <li><a href="<?php echo $information['href']; ?>"><?php echo $information['title']; ?></a></li>
       							<?php } ?> 
+                                <li><a href="<?php echo $contact; ?>">Контакты</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -129,8 +130,8 @@
 		                    <li><a href="<?php echo $category['href']; ?>"><?php echo $category['name']; ?></a>
 
         						<?php if ($category['children']) { ?>
-			                        <div class="main-nav__dropdown main-nav__dropdown-f">
-			                        	<?php foreach (array_chunk($category['children'], ceil(count($category['children']) / $category['column'])) as $children) { ?>
+			                        <div class="main-nav__dropdown <?=($category['column'] > 1) ? 'main-nav__dropdown-f' : ''?>">
+			                        	<?php foreach (array_chunk($category['children'], 3) as $children) { ?>
                 							<?php foreach ($children as $child) { ?>
 			                            		<div class="main-nav__item"><a href="<?php echo $child['href']; ?>" class="main-nav__link"><?php echo $child['name']; ?></a></div> 
                 							<?php } ?>
