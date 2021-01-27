@@ -38,7 +38,7 @@ class ControllerInformationContact extends Controller {
 			'text' => $this->language->get('heading_title'),
 			'href' => $this->url->link('information/contact')
 		);
-
+		$data['config_email'] = $this->config->get('config_email');
 		$data['heading_title'] = $this->language->get('heading_title');
 
 		$data['text_location'] = $this->language->get('text_location');
@@ -115,6 +115,7 @@ class ControllerInformationContact extends Controller {
 					'address'     => nl2br($location_info['address']),
 					'geocode'     => $location_info['geocode'],
 					'telephone'   => $location_info['telephone'],
+					'telephone_publish' => $this->phone_number($location_info['telephone']),
 					'fax'         => $location_info['fax'],
 					'image'       => $image,
 					'open'        => nl2br($location_info['open']),
@@ -217,4 +218,30 @@ class ControllerInformationContact extends Controller {
 
 		$this->response->setOutput($this->load->view('common/success', $data));
 	}
+	function phone_number($phone){
+		$phone = trim($phone);
+	 
+		$res = preg_replace(
+			array(
+				'/[\+]?([7|8])[-|\s]?\([-|\s]?(\d{4})[-|\s]?\)[-|\s]?(\d{2})[-|\s]?(\d{2})[-|\s]?(\d{2})/',
+				'/[\+]?([7|8])[-|\s]?(\d{4})[-|\s]?(\d{2})[-|\s]?(\d{2})[-|\s]?(\d{2})/',
+				'/[\+]?([7|8])[-|\s]?\([-|\s]?(\d{4})[-|\s]?\)[-|\s]?(\d{2})[-|\s]?(\d{2})[-|\s]?(\d{2})/',
+				'/[\+]?([7|8])[-|\s]?(\d{4})[-|\s]?(\d{2})[-|\s]?(\d{2})[-|\s]?(\d{2})/',	
+				'/[\+]?([7|8])[-|\s]?\([-|\s]?(\d{4})[-|\s]?\)[-|\s]?(\d{3})[-|\s]?(\d{3})/',
+				'/[\+]?([7|8])[-|\s]?(\d{4})[-|\s]?(\d{3})[-|\s]?(\d{3})/',					
+			), 
+			array(
+				'+7 ($2) $3-$4-$5', 
+				'+7 ($2) $3-$4-$5', 
+				'+7 ($2) $3-$4-$5', 
+				'+7 ($2) $3-$4-$5', 	
+				'+7 ($2) $3-$4', 
+				'+7 ($2) $3-$4', 
+			), 
+			$phone
+		);
+	 
+		return $res;
+	}
+
 }

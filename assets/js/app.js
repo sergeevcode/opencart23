@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function() {
               // Необходимо указать данный тип макета.
               iconLayout: 'default#image',
               // Своё изображение иконки метки.
-              iconImageHref: 'images/icons/marker.png',
+              iconImageHref: '/assets/images/icons/marker.png',
               // Размеры метки.
               iconImageSize: [84, 70],
               // Смещение левого верхнего угла иконки относительно
@@ -275,7 +275,7 @@ document.addEventListener("DOMContentLoaded", function() {
               // Необходимо указать данный тип макета.
               iconLayout: 'default#imageWithContent',
               // Своё изображение иконки метки.
-              iconImageHref: 'images/icons/marker.png',
+              iconImageHref: '/assets/images/icons/marker.png',
               // Размеры метки.
               iconImageSize: [84, 70],
               // Смещение левого верхнего угла иконки относительно
