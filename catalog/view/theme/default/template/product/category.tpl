@@ -146,19 +146,26 @@
 
                 <div class="categories-list">
                     <div class="categories-list__wrap">
-
-                        <div class="categories-item">
-                            <div class="card">
-                                <a href="#">
-                                    <div class="card__pic" style="background-image: url('images/card/card-4.png');">
+                        <?php if ($products) { ?>
+                            <?php foreach ($products as $product) { ?>
+                            <div class="categories-item">
+                                <div class="card">
+                                    <a href="<?php echo $product['href']; ?>">
+                                        <div class="card__pic" style="background-image: url('<?php echo $product['thumb']; ?>');">
+                                        </div>
+                                    </a>
+                                    <div class="card__wrap">
+                                        <h3 class="card__title"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></h3>
+                                        <?php if (!$product['special']) { ?>
+                                        <div class="card__price"><?php echo $product['price']; ?> руб.</div>
+                                        <?php } else { ?>
+                                        <div class="card__price"><?php echo $product['special']; ?> руб.</div>
+                                        <?php } ?>
                                     </div>
-                                </a>
-                                <div class="card__wrap">
-                                    <h3 class="card__title"><a href="#">Авторский букет “Гармония”</a></h3>
-                                    <div class="card__price">3 500 руб.</div>
                                 </div>
-                            </div>
-                        </div> 
+                            </div> 
+                            <?php } ?>
+                        <?php } ?>
 
                     </div>
 
