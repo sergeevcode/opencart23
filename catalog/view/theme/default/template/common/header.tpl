@@ -124,14 +124,13 @@
                     </nav>
                 	<?php } ?> 
                 	<?php if ($categories) { ?>
-                    <span class="main-nav__menu">Категории</span>
-
+                    <span class="main-nav__menu">Категории</span> 
         				<?php foreach ($categories as $category) { ?>
 		                    <li><a href="<?php echo $category['href']; ?>"><?php echo $category['name']; ?></a>
 
         						<?php if ($category['children']) { ?>
 			                        <div class="main-nav__dropdown main-nav__dropdown-f">
-			                        	<?php foreach ($category['children'] as $children) { ?>
+			                        	<?php foreach (array_chunk($category['children'], ceil(count($category['children']) / $category['column'])) as $children) { ?>
                 							<?php foreach ($children as $child) { ?>
 			                            		<div class="main-nav__item"><a href="<?php echo $child['href']; ?>" class="main-nav__link"><?php echo $child['name']; ?></a></div> 
                 							<?php } ?>
