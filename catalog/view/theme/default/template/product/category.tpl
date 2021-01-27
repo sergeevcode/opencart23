@@ -157,9 +157,9 @@
                                     <div class="card__wrap">
                                         <h3 class="card__title"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></h3>
                                         <?php if (!$product['special']) { ?>
-                                        <div class="card__price"><?php echo $product['price']; ?> руб.</div>
+                                        <div class="card__price"><?php echo $product['price']; ?></div>
                                         <?php } else { ?>
-                                        <div class="card__price"><?php echo $product['special']; ?> руб.</div>
+                                        <div class="card__price"><?php echo $product['special']; ?></div>
                                         <?php } ?>
                                     </div>
                                 </div>
