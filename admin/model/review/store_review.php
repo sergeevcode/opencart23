@@ -21,7 +21,7 @@ class ModelReviewStoreReview extends Model {
 
 		$this->cache->delete('product');
 
-		$this->event->trigger('post.admin.store_review.edit', $review_id);
+		// $this->event->trigger('post.admin.store_review.edit', $review_id);
 	}
 
 	public function deleteReview($review_id) {
@@ -31,7 +31,7 @@ class ModelReviewStoreReview extends Model {
 
 		$this->cache->delete('product');
 
-		$this->event->trigger('post.admin.store_review.delete', $review_id);
+		// $this->event->trigger('post.admin.store_review.delete', $review_id);
 	}
 
 	public function getReview($review_id) {

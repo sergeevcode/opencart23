@@ -6,7 +6,8 @@ class ControllerReviewStoreReview extends Controller
     public function index()
     {
         $this->load->language('review/store_review');
-
+         
+        $this->load->model('review/store_review');
         $data['breadcrumbs'] = array();
 
         $data['breadcrumbs'][] = array(
@@ -74,7 +75,37 @@ class ControllerReviewStoreReview extends Controller
         $data['content_bottom'] = $this->load->controller('common/content_bottom');
         $data['footer'] = $this->load->controller('common/footer');
         $data['header'] = $this->load->controller('common/header');
+        if (isset($this->request->get['page'])) {
+            $page = $this->request->get['page'];
+        } else {
+            $page = 1;
+        }
+        
+        $pagination = new Pagination();
+        
+        $review_total = $this->model_review_store_review->getTotalReviews();
+        $pagination->total = $review_total;
+        $pagination->page = $page;
+        $pagination->limit = 5;
+        $pagination->url = 'index.php?route=review/store_review/review&page={page}';
 
+        $data['pagination'] = $pagination->render();
+        $data['reviews'] = array();
+
+        $review_total = $this->model_review_store_review->getTotalReviews();
+
+        $results = $this->model_review_store_review->getReviews(($page - 1) * 5, 5);
+
+        foreach ($results as $result) {
+            $data['reviews'][] = array(
+                'author'     => $result['author'],
+                'link'     => $result['link'],
+                'admin_answer'     => $result['admin_answer'],
+                'text'       => nl2br($result['text']),
+                'rating'     => (int)$result['rating'],
+                'date_added' => date($this->language->get('date_format_short'), strtotime($result['date_added']))
+            );
+        }
 
             $this->response->setOutput($this->load->view('review/store_review', $data));
 

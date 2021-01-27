@@ -3,7 +3,7 @@
   <?php foreach ($reviews as $review) { ?>
 
     <div class="col-md-12 review-item ">
-
+fgaehzthjyjhgkhjk
 
         <div class="col-xs-6 col-sm-6">  <?php
           if(isset($review['link'])&& !empty($review['link'])){ ?>
