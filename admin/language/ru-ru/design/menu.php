@@ -1,34 +1,35 @@
 <?php
 // Heading
-$_['heading_title']     = 'Menu';
+$_['heading_title']     = 'Меню';
 
 // Text
-$_['text_success']      = 'Success: You have modified layouts!';
-$_['text_list']         = 'Menu List';
-$_['text_add']          = 'Add Menu';
-$_['text_edit']         = 'Edit Menu';
-$_['text_default']      = 'Default';
-$_['text_link']         = 'Link';
-$_['text_module']       = 'Module';
+$_['text_success']      = 'Настройки успешно изменены!';
+$_['text_list']         = 'Список меню';
+$_['text_add']          = 'Добавить';
+$_['text_edit']         = 'Редактирование';
+$_['text_default']      = 'По умолчанию';
+$_['text_link']         = 'Ссылка';
+$_['text_module']       = 'Модуль';
 
 // Column
-$_['column_name']       = 'Menu Name';
-$_['column_store']      = 'Store';
-$_['column_type']       = 'Type';
-$_['column_sort_order'] = 'Sort Order';
-$_['column_status']     = 'Status';
-$_['column_action']     = 'Action';
+$_['column_name']       = 'Название';
+$_['column_store']      = 'Магазин';
+$_['column_type']       = 'Тип';
+$_['column_sort_order'] = 'Порядок сортировки';
+$_['column_status']     = 'Статус';
+$_['column_action']     = 'Действие';
 
 // Entry
-$_['entry_name']        = 'Menu Name';
-$_['entry_store']       = 'Store';
-$_['entry_type']        = 'Type';
-$_['entry_sort_order']  = 'Sort Order';
-$_['entry_module']      = 'Module';
-$_['entry_status']      = 'Status';
+$_['entry_name']        = 'Меню';
+$_['entry_store']       = 'Магазин';
+$_['entry_type']        = 'Тип';
+$_['entry_sort_order']  = 'Порядок сортировки';
+$_['entry_module']      = 'Модуль';
+$_['entry_status']      = 'Статус';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify layouts!';
-$_['error_name']        = 'Layout Name must be between 3 and 64 characters!';
-$_['error_default']     = 'Warning: This layout cannot be deleted as it is currently assigned as the default store layout!';
-$_['error_store']       = 'Warning: This layout cannot be deleted as it is currently assigned to %s stores!';
+$_['error_permission']  = 'У Вас нет прав для изменения настроек!';
+$_['error_name']        = 'Название баннера должно быть от 3 до 64 символов!';
+$_['error_default']     = 'Данное меню не может быть удалено, поскольку оно используется в магазине по умолчанию!';
+$_['error_store']       = 'Данное меню не может быть удалено, поскольку оно используется %s магазином(ами)!';
+

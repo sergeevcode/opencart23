@@ -1,15 +1,16 @@
 <?php
 // Heading
-$_['heading_title']    = 'Captcha';
+$_['heading_title']    = 'Защита от роботов';
 
 // Text
-$_['text_success']     = 'Настройки службы успешно обновлены';
-$_['text_list']        = 'Список доступных CAPTCHA';
+$_['text_success']     = 'Настройки успешно обновлены!';
+$_['text_list']        = 'Список';
 
 // Column
-$_['column_name']      = 'Название службы';
+$_['column_name']      = 'Название';
 $_['column_status']    = 'Статус';
 $_['column_action']    = 'Действие';
 
 // Error
-$_['error_permission'] = 'У вас нет прав для управления этим модулем!';
+$_['error_permission'] = 'У Вас нет прав для изменения канала товаров!';
+

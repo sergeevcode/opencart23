@@ -1,22 +1,23 @@
 <?php
 // Heading
-$_['heading_title']    = 'Extension Store';
+$_['heading_title']    = 'Магазин расширений и тем';
 
 // Text
-$_['text_success']     = 'Success: You have modified extensions!';
-$_['text_list']        = 'Extension List';
-$_['text_license']     = 'License';
-$_['text_free']        = 'Free';
-$_['text_commercial']  = 'Commercial';
-$_['text_category']    = 'All Categories';
-$_['text_theme']       = 'Themes';
-$_['text_payment']     = 'Payment Gateways';
-$_['text_shipping']    = 'Shipping Methods';
-$_['text_module']      = 'Modules';
-$_['text_total']       = 'Order Totals';
-$_['text_feed']        = 'Product Feeds';
-$_['text_report']      = 'Reports';
-$_['text_other']       = 'Other';
+$_['text_success']     = 'Настройки успешно изменены!';
+$_['text_list']        = 'Список';
+$_['text_license']     = 'Лицензия';
+$_['text_free']        = 'Бесплатно';
+$_['text_commercial']  = 'Платно';
+$_['text_category']    = 'Все категории';
+$_['text_theme']       = 'Темы';
+$_['text_payment']     = 'Оплата';
+$_['text_shipping']    = 'Доставка';
+$_['text_module']      = 'Модули';
+$_['text_total']       = 'Учитывать в заказе';
+$_['text_feed']        = 'Продвижение';
+$_['text_report']      = 'Отчеты';
+$_['text_other']       = 'Другое';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify extensions!';
+$_['error_permission'] = 'У Вас нет прав для изменения настроек!';
+

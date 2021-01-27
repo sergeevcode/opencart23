@@ -1,19 +1,20 @@
 <?php
 // Heading
-$_['heading_title']     = 'Отчёт об онлайн пользователях';
+$_['heading_title']     = 'Клиенты онлайн';
 
 // Text
-$_['text_list']         = 'Список онлайн покупателей';
+$_['text_list']         = 'Список онлайн клиентов';
 $_['text_guest']        = 'Гость';
 
 // Column
 $_['column_ip']         = 'IP';
-$_['column_customer']   = 'Покупатель';
-$_['column_url']        = 'Последняя посещенная страница';
-$_['column_referer']    = 'Откуда пришёл';
+$_['column_customer']   = 'Клиент';
+$_['column_url']        = 'Последняя просмотренная страница';
+$_['column_referer']    = 'Реферал';
 $_['column_date_added'] = 'Последний клик';
 $_['column_action']     = 'Действие';
 
 // Entry
-$_['entry_ip']          = 'IP адрес:';
-$_['entry_customer']    = 'Покупатель:';
+$_['entry_ip']          = 'IP';
+$_['entry_customer']    = 'Клиент';
+

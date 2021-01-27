@@ -1,21 +1,22 @@
 <?php
 // Heading
-$_['heading_title']     = 'Загрузка файлов';
+$_['heading_title']     = 'Внешние загрузки';
 
 // Text
-$_['text_success']      = 'Список загруженного материала успешно обновлен!';
-$_['text_list']         = 'Список загруженного материала';
+$_['text_success']      = 'Выполнено!';
+$_['text_list']         = 'Внешние загрузки';
 
 // Column
-$_['column_name']       = 'Название загрузки';
-$_['column_filename']   = 'Имя файла';
+$_['column_name']       = 'Название Файла';
+$_['column_filename']   = 'Имя Файла';
 $_['column_date_added'] = 'Дата добавления';
 $_['column_action']     = 'Действие';
 
 // Entry
-$_['entry_name']        = 'Название загрузки';
-$_['entry_filename']    = 'Имя файла';
+$_['entry_name']        = 'Название Файла';
+$_['entry_filename']    = 'Имя Файла';
 $_['entry_date_added'] 	= 'Дата добавления';
 
 // Error
-$_['error_permission']  = 'У вас нет доступа к списку загруженного материала!';
+$_['error_permission']  = 'У Вас нет прав для управления данным модулем!';
+

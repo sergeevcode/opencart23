@@ -1,13 +1,15 @@
 <?php
-$_['heading_title']    = 'Basic Captcha';
+$_['heading_title']    = 'Простая защита';
 
 // Text
-$_['text_success']	   = 'Настройки Basic Captcha успешно обновлены!';
-$_['text_edit']        = 'Редактирование Basic Captcha';
-$_['text_extension']   = 'Captcha';
+$_['text_extension']   = 'Расширения';
+$_['text_success']	   = 'Настройки успешно изменены!';
+$_['text_edit']        = 'Настройки модуля';
 
 // Entry
 $_['entry_status']     = 'Статус';
 
 // Error
-$_['error_permission'] = 'У вас нет прав для управления этим модулем!';
+$_['error_permission'] = 'У Вас нет прав для управления данным модулем!';
+
+

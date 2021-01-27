@@ -1,17 +1,18 @@
 <?php
 // Heading
-$_['heading_title']    = 'Theme Editor';
+$_['heading_title']    = 'Редактор тем';
 
 // Text
-$_['text_success']     = 'Success: You have modified themes!';
-$_['text_edit']        = 'Edit Theme';
-$_['text_store']       = 'Choose your store';
-$_['text_template']    = 'Choose a template';
-$_['text_default']     = 'Default';
-$_['text_warning']     = 'Warning: Security can be compromised using the theme editor!';
-$_['text_access']      = 'Make sure that only the correct admin users are allowed to access this page as you can directly access your stores souce code.';
-$_['text_permission']  = 'You can change the user permissions <a href="%s" class="alert-link">here</a>.';
-$_['text_begin']       = 'Select a theme file from the left side to begin editing.';
+$_['text_success']     = 'Настройки успешно изменены!';
+$_['text_edit']        = 'Редактирование';
+$_['text_store']       = 'Выбрать магазин';
+$_['text_template']    = 'Выбрать шаблон';
+$_['text_default']     = 'По умолчанию';
+$_['text_warning']     = 'Внимание! Безопасность может быть нарушена с из за редактора тем';
+$_['text_access']      = 'Убедитесь, что только нужные учетные записи администратора имеют доступ к этой странице, та как вы получаете прямой доступ к исходному коду.';
+$_['text_permission']  = 'Вы можете изменить права доступа <a href="%s" class="alert-link">тут</a>.';
+$_['text_begin']       = 'Выберите тему слева, чтобы начать редактирование.';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify the theme editor!';
+$_['error_permission'] = 'У Вас нет прав для изменения настроек!';
+

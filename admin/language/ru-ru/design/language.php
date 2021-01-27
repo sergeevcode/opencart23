@@ -1,20 +1,21 @@
 <?php
 // Heading
-$_['heading_title']    = 'Language Editor';
+$_['heading_title']    = 'Редактор языков';
 
 // Text
-$_['text_success']     = 'Success: You have modified language editor!';
-$_['text_edit']        = 'Edit Translation';
-$_['text_default']     = 'Default';
-$_['text_store']       = 'Store';
-$_['text_language']    = 'Language';
-$_['text_translation'] = 'Choose a translation';
-$_['text_translation'] = 'Translations';
+$_['text_success']     = 'Настройки успешно изменены!';
+$_['text_edit']        = 'Редактирование';
+$_['text_default']     = 'По умолчанию';
+$_['text_store']       = 'Магазин';
+$_['text_language']    = 'Язык';
+$_['text_translation'] = 'Выбрать перевод';
+$_['text_translation'] = 'Выбрать перевод';
 
 // Entry
-$_['entry_key']        = 'Key';
-$_['entry_value']      = 'Value';
-$_['entry_default']    = 'Default';
+$_['entry_key']        = 'Ключ';
+$_['entry_value']      = 'Значение';
+$_['entry_default']    = 'По умолчанию';
 
 // Error
-$_['error_permission'] = 'Warning: You do not have permission to modify language editor!';
+$_['error_permission'] = 'У Вас нет прав для изменения настроек!';
+

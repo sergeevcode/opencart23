@@ -1,22 +1,23 @@
 <?php
 // Heading
-$_['heading_title'] = 'Статистика продаж';
+$_['heading_title']    = 'Аналитика продаж';
 
 // Text
-$_['text_extension']   = 'Панель управления';
-$_['text_success']     = 'Панель статистики успешно изменена!';
-$_['text_edit']        = 'Редактировать';
-$_['text_order']    = 'Заказов';
-$_['text_customer'] = 'Покупателей';
-$_['text_day']      = 'Сегодня';
-$_['text_week']     = 'За неделю';
-$_['text_month']    = 'За месяц';
-$_['text_year']     = 'За этот год';
+$_['text_extension']   = 'Расширения';
+$_['text_success']     = 'Настройки успешно изменены!';
+$_['text_edit']        = 'Настройки';
+$_['text_order']       = 'Заказов';
+$_['text_customer']    = 'Клиентов';
+$_['text_day']         = 'Сегодня';
+$_['text_week']        = 'Неделя';
+$_['text_month']       = 'Месяц';
+$_['text_year']        = 'Год';
 
 // Entry
+$_['entry_width']     = 'Ширина';
 $_['entry_status']     = 'Статус';
-$_['entry_sort_order'] = 'Сортировка';
-$_['entry_width']      = 'Ширина';
+$_['entry_sort_order'] = 'Порядок сортировки';
 
 // Error
-$_['error_permission'] = 'У вас нет прав для управления этим модулем!';
+$_['error_permission'] = 'У Вас нет прав для управления данным расширением!';
+
