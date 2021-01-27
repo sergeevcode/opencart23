@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modification>
+    <code>Store_reviews</code>
+    <name>Store Reviews </name>
+    <version>1.0</version>
+    <author>Andrey Derevjanko</author>
+    <link>http://web-andryshka.ru</link>
+    <file path="admin/controller/common/column_left.php">
+        <operation>
+            <search><![CDATA[if ($this->user->hasPermission('access', 'catalog/review'))]]></search>
+            <add position="before"><![CDATA[	if ($this->user->hasPermission('access', 'review/store_review')) {
+				$catalog[] = array(
+					'name'	   => 'Store reviews',
+					'href'     => $this->url->link('review/store_review', 'token=' . $this->session->data['token'], true),
+					'children' => array()
+				);
+			}]]></add>
+        </operation>
+    </file>
+
+    <file path="admin/language/*/common/menu.php">
+        <operation>
+            <search><![CDATA[$_['text_user']]]></search>
+            <add position="before"><![CDATA[
+				$_['text_product_review']                = 'Product reviews';
+				$_['text_store_review']                  = 'Store reviews';
+            ]]></add>
+        </operation>
+    </file>
+    <file path="admin/controller/setting/setting.php">
+        <operation>
+            <search><![CDATA[$data['captcha_pages'] = array();]]></search>
+            <add position="after"><![CDATA[
+				$data['captcha_pages'][] = array(
+			    'text'  => 'Store Reviews Lite',
+			    'value' => 'sr_lite'
+		        );
+            ]]></add>
+        </operation>
+    </file>
+
+
+    <file path="admin/view/template/setting/setting.tpl">
+        <operation>
+            <search><![CDATA[
+				  <div class="tab-pane" id="tab-option">
+            ]]></search>
+            <add trim="false" position="after"><![CDATA[
+                <fieldset>
+                <legend><?php echo $text_google_captcha; ?></legend>
+                <div class="alert alert-info"><?php echo $help_google_captcha; ?></div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-google-captcha-public"><?php echo $entry_google_captcha_public; ?></label>
+                  <div class="col-sm-10">
+                    <input type="text" name="config_google_captcha_public" value="<?php echo $config_google_captcha_public; ?>" placeholder="<?php echo $entry_google_captcha_public; ?>" id="input-google-captcha-public" class="form-control" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-google-captcha-secret"><?php echo $entry_google_captcha_secret; ?></label>
+                  <div class="col-sm-10">
+                    <input type="text" name="config_google_captcha_secret" value="<?php echo $config_google_captcha_secret; ?>" placeholder="<?php echo $entry_google_captcha_secret; ?>" id="input-google-captcha-secret" class="form-control" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-sm-2 control-label" for="input-google-captcha-status"><?php echo $entry_status; ?></label>
+                  <div class="col-sm-10">
+                    <select name="config_google_captcha_status" id="input-google-captcha-status" class="form-control">
+                      <?php if ($config_google_captcha_status) { ?>
+                      <option value="1" selected="selected"><?php echo $text_enabled; ?></option>
+                      <option value="0"><?php echo $text_disabled; ?></option>
+                      <?php } else { ?>
+                      <option value="1"><?php echo $text_enabled; ?></option>
+                      <option value="0" selected="selected"><?php echo $text_disabled; ?></option>
+                      <?php } ?>
+                    </select>
+                  </div>
+                </div>
+              </fieldset>
+            ]]></add>
+        </operation>
+    </file>
+    <file path="admin/controller/setting/setting.php">
+        <operation>
+            <search><![CDATA[
+				$data['heading_title'] = $this->language->get('heading_title');
+            ]]></search>
+            <add position="after" trim="false"><![CDATA[
+		        $data['text_google_captcha'] = $this->language->get('text_google_captcha');
+		        $data['entry_google_captcha_public'] = $this->language->get('entry_google_captcha_public');
+		        $data['entry_google_captcha_secret'] = $this->language->get('entry_google_captcha_secret');
+		        $data['entry_status'] = $this->language->get('entry_status');
+		        $data['text_enabled'] = $this->language->get('text_enabled');
+		        $data['text_disabled'] = $this->language->get('text_disabled');
+		        $data['help_google_captcha'] = $this->language->get('help_google_captcha');
+            ]]></add>
+        </operation>
+        <operation>
+            <search><![CDATA[
+				$data['header'] = $this->load->controller('common/header');
+            ]]></search>
+            <add position="before" trim="false"><![CDATA[
+		       		if (isset($this->request->post['config_google_captcha_public'])) {
+                        $data['config_google_captcha_public'] = $this->request->post['config_google_captcha_public'];
+                    } else {
+                        $data['config_google_captcha_public'] = $this->config->get('config_google_captcha_public');
+                    }
+
+                    if (isset($this->request->post['config_google_captcha_secret'])) {
+                        $data['config_google_captcha_secret'] = $this->request->post['config_google_captcha_secret'];
+                    } else {
+                        $data['config_google_captcha_secret'] = $this->config->get('config_google_captcha_secret');
+                    }
+
+                    if (isset($this->request->post['config_google_captcha_status'])) {
+                        $data['config_google_captcha_status'] = $this->request->post['config_google_captcha_status'];
+                    } else {
+                        $data['config_google_captcha_status'] = $this->config->get('config_google_captcha_status');
+                    }
+            ]]></add>
+        </operation>
+    </file>
+    <file path="admin/language/*/setting/setting.php">
+        <operation>
+            <search><![CDATA[
+				$_['heading_title']
+            ]]></search>
+            <add position="after" trim="false" offset="1"><![CDATA[
+				$_['text_google_captcha']              = 'Google reCAPTCHA';
+				$_['entry_google_captcha_public']      = 'Site key';
+                $_['entry_google_captcha_secret']      = 'Secret key';
+                $_['entry_status']                     = 'Status';
+                $_['help_google_captcha']              = 'Go to <a href="https://www.google.com/recaptcha/intro/index.html" target="_blank"><u>Google reCAPTCHA page</u></a> and register your website.';
+            ]]></add>
+        </operation>
+    </file>
+
+</modification>

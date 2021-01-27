@@ -132,6 +132,13 @@ class ControllerCommonColumnLeft extends Controller {
 				);
 			}
 			
+	if ($this->user->hasPermission('access', 'review/store_review')) {
+				$catalog[] = array(
+					'name'	   => 'Store reviews',
+					'href'     => $this->url->link('review/store_review', 'token=' . $this->session->data['token'], true),
+					'children' => array()
+				);
+			}
 			if ($this->user->hasPermission('access', 'catalog/review')) {		
 				$catalog[] = array(
 					'name'	   => $this->language->get('text_review'),
