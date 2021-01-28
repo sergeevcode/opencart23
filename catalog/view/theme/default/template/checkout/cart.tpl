@@ -9,8 +9,9 @@
                 <div class="basket__list">
                 	<?php foreach ($products as $product) { ?>
                     <div class="basket-item">
-
-                        <div class="h-sale basket-sale">10%</div>
+                    	<?php if ($product['special']) { ?>
+	                        <div class="h-sale basket-sale">10%</div>
+	                    <?php } ?>
                         <button type="button" class="basket-delete">&#10006;</button>
 
                         <div class="basket__left">
@@ -25,13 +26,17 @@
                                 <div class="basket__amount">
                                     <div class="amount">
                                         <button class="amount__btn-minus">-</button>
-                                        <input type="text" class="amount__input" name="quantity[<?php echo $product['cart_id']; ?>]" value="<?php echo $product['quantity']; ?>" size="1"  maxlength="3" value="1">
+                                        <input type="text" class="amount__input" name="quantity[<?php echo $product['cart_id']; ?>]" value="<?php echo $product['quantity']; ?>" size="1"  maxlength="3">
                                         <button class="amount__btn-plus">+</button>
                                     </div>
                                 </div>
                                 <div class="basket-price">
-                                    <span class="basket-price__new"><?php echo $product['price']; ?></span>
-                                    <span class="basket-price__old">3 500 руб.</span>
+                                	<?php if ($product['special']) { ?>
+	                                    <span class="basket-price__new"><?php echo $product['special']; ?></span>
+	                                    <span class="basket-price__old"><?php echo $product['price']; ?></span>
+	                                <?php } else {?> 
+	                                    <span class="basket-price__new"><?php echo $product['price']; ?></span> 
+	                                <?php } ?>
                                 </div>
                             </div>
                         </div>
@@ -57,8 +62,8 @@
                         </div>
 
                         <div class="basket-total__bottom">
-                            <div class="basket-total__sum">Итого: <span>5 350 руб.</span></div>
-                            <a href="#" class="btn btn--fill basket-total__btn">Оформить заказ</a>
+                            <div class="basket-total__sum">Итого: <span><?php echo $total['text']?></span></div>
+                            <a href="<?php echo $checkout; ?>" class="btn btn--fill basket-total__btn">Оформить заказ</a>
                         </div>
                     </div>
 

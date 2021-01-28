@@ -75,8 +75,10 @@ class ControllerCheckoutCart extends Controller {
 
 			$products = $this->cart->getProducts();
 
+			$this->load->model('catalog/product');
 			foreach ($products as $product) {
 				$product_total = 0;
+				$product_info = $this->model_catalog_product->getProduct($product['product_id']);
 
 				foreach ($products as $product_2) {
 					if ($product_2['product_id'] == $product['product_id']) {
@@ -125,6 +127,11 @@ class ControllerCheckoutCart extends Controller {
 					$price = false;
 					$total = false;
 				}
+				if ((float)$product_info['special']) {
+					$special = $this->currency->format($this->tax->calculate($special, $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+				} else {
+					$special = false;
+				}
 
 				$recurring = '';
 
@@ -160,7 +167,8 @@ class ControllerCheckoutCart extends Controller {
 					'reward'    => ($product['reward'] ? sprintf($this->language->get('text_points'), $product['reward']) : ''),
 					'price'     => $price,
 					'total'     => $total,
-					'href'      => $this->url->link('product/product', 'product_id=' . $product['product_id'])
+					'href'      => $this->url->link('product/product', 'product_id=' . $product['product_id']),
+					'special' => $special
 				);
 			}
 
@@ -222,14 +230,14 @@ class ControllerCheckoutCart extends Controller {
 				array_multisort($sort_order, SORT_ASC, $totals);
 			}
 
-			$data['totals'] = array();
-
-			foreach ($totals as $total) {
+			$data['totals'] = array(); 
+			foreach ($totals as $total) { 
 				$data['totals'][] = array(
 					'title' => $total['title'],
 					'text'  => $this->currency->format($total['value'], $this->session->data['currency'])
 				);
 			}
+ 
 
 			$data['continue'] = $this->url->link('common/home');
 
