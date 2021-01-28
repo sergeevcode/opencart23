@@ -74,11 +74,17 @@
                             <div class="content-size__title">Размер букета:</div>
                             <div class="content-size__wrap">
 
-            					<?php foreach ($options as $option) { ?>
-            						<?php foreach ($option['product_option_value'] as $option_value) { ?>
+            					<?php 
+            					$i = 0;
+            					foreach ($options as $option) { 
+            						
+            					?>
+            						<?php foreach ($option['product_option_value'] as $option_value) { 
+            							$i++;
+            						?>
 		                                <div class="content-size__item">
-		                                    <input type="radio" id="option[<?php echo $option['product_option_id']; ?>]" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>">
-		                                    <label for="option[<?php echo $option['product_option_id']; ?>]"><?php echo html_entity_decode($option_value['name']); ?></label>
+		                                    <input type="radio" id="option_<?php echo $option['product_option_id'].$i; ?>" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>">
+		                                    <label for="option_<?php echo $option['product_option_id'].$i; ?>"><?php echo html_entity_decode($option_value['name']); ?></label>
 		                                </div> 
 	                				<?php } ?>
                 				<?php } ?>
