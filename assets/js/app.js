@@ -407,13 +407,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 (function($){
 	$('#button-cart').on('click', function() {
-	  $.ajax({
-	    url: 'index.php?route=checkout/cart/add',
-	    type: 'post',
-	    data: $('#product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
-	    dataType: 'json',
+	  	$.ajax({
+		    url: 'index.php?route=checkout/cart/add',
+		    type: 'post',
+		    data: $('#product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
+		    dataType: 'json',
 	    
-	    success: function(json) { 
+	    	success: function(json) { 
 		      if (json['success']) {
 		       	$(this).text("В корзине")
 		      }
