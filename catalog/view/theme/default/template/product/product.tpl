@@ -44,45 +44,46 @@
             		<?php } ?>
 
                     <div class="content-right" id="product">
-                        <h1 class="content__title">Авторский Авторский букет “Новогоднее настроение”</h1>
-                        <div class="content-price">
-                            <span class="content-price__new">3 500 руб.</span>
-                            <span class="content-price__old">3 500 руб.</span>
-                            <div class="h-sale content-sale">10%</div>
-                        </div>
-                        <!-- /.content-price -->
+                        <h1 class="content__title"><?php echo $product['name']; ?></h1>
+
+              			<?php if ($product['price']) { ?>
+	                        <div class="content-price">
+	                        	<?php if (!$product['special']) { ?>
+		                            <span class="content-price__new"><?php echo $product['price']; ?>.</span>
+	                        		<?php } else { ?>
+		                            <span class="content-price__new"><?php echo $product['special']; ?></span>
+		                            <span class="content-price__old"><?php echo $product['price']; ?></span>
+		                            <div class="h-sale content-sale">10%</div>
+	              				<?php } ?>
+	                        </div>
+	                        <!-- /.content-price -->
+	              		<?php } ?>
                         <div class="content-amount">
                             <span>Количество:</span>
                             <div class="amount">
                                 <button class="amount__btn-minus">-</button>
-                                <input type="text" class="amount__input" name="amount" maxlength="3" value="1">
+                                <input type="text" class="amount__input" name="quantity" value="<?php echo $minimum; ?>" size="2" id="input-quantity"  maxlength="3">
                                 <button class="amount__btn-plus">+</button>
                                 <!-- <div class="amount__measure">шт</div> -->
                             </div>
                         </div>
                         <!-- /.content-amount -->
+
+            			<?php if ($options) { ?>
                         <div class="content-size">
                             <div class="content-size__title">Размер букета:</div>
                             <div class="content-size__wrap">
-                                <div class="content-size__item">
-                                    <input type="radio" name="radio" id="size-mini" value="20 см" checked>
-                                    <label for="size-mini"><span>Mini</span>20 см</label>
-                                </div>
-                                <div class="content-size__item">
-                                    <input type="radio" name="radio" id="size-midi" value="30 см">
-                                    <label for="size-midi"><span>Midi</span>20 см</label>
-                                </div>
-                                <div class="content-size__item">
-                                    <input type="radio" name="radio" id="size-max" value="45 см">
-                                    <label for="size-max"><span>Midi</span>45 см</label>
-                                </div>
-                                <div class="content-size__item">
-                                    <input type="radio" name="radio" id="size-max" value="45 см">
-                                    <label for="size-max"><span>Midi</span>45 см</label>
-                                </div>
+
+            					<?php foreach ($options as $option) { ?>
+	                                <div class="content-size__item">
+	                                    <input type="radio" id="option[<?php echo $option['product_option_id']; ?>]" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>">
+	                                    <label for="option[<?php echo $option['product_option_id']; ?>]"><?php echo $option_value['name']; ?></label>
+	                                </div> 
+                				<?php } ?>
                             </div>
                         </div>
                         <!-- /.content-size -->
+        				<?php } ?>
                         <div class="content-basket">
                         	<input type="hidden" name="product_id" value="<?php echo $product_id; ?>" />
                             <button id="button-cart" class="btn btn--dark btn-basket content-basket__btn">Добавить В корзину</button>
@@ -114,37 +115,47 @@
 
                 <div class="content-descr">
                     <div class="content-descr__left-wrap">
+
+      					<?php if ($tags) { ?>
                         <div class="content-descr__composition">
                             <h4 class="content-descr__title content-descr__title--white">Цветы<br>в составе букета:</h4>
                             <div class="content-descr__wrap">
                                 <div class="content-descr__tags-list">
-                                    <a href="#">Розы</a>
-                                    <a href="#">Фиалка</a>
-                                    <a href="#">Гвоздика</a>
-                                    <a href="#">Эустома</a>
+									<?php for ($i = 0; $i < count($tags); $i++) { ?>
+								        <?php if ($i < (count($tags) - 1)) { ?>
+								        	<a href="<?php echo $tags[$i]['href']; ?>"><?php echo $tags[$i]['tag']; ?></a>,
+							        	<?php } else { ?>
+								        	<a href="<?php echo $tags[$i]['href']; ?>"><?php echo $tags[$i]['tag']; ?></a>
+								        <?php } ?>
+							        <?php } ?>
                                 </div>
                             </div>
                         </div>
                         <!-- /.descr__composition -->
-                        <div class="content-descr__color">
-                            <h4 class="content-descr__title">Цвета букета:</h4>
-                            <div class="content-descr__wrap">
-                                <div class="content-descr__tags-color-list">
-                                    <a href="#"><span style="background-color: #ff5656;"></span>Красный</a>
-                                    <a href="#"><span style="background-color: #fda9e2;"></span>Розовый</a>
-                                    <a href="#"><span style="background-color: #ffd0c1;"></span>Кремовый</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /.descr__color -->
+        				<?php } ?>
+        				<?php if ($attribute_groups) { ?>
+	        				<?php foreach ($attribute_groups as $attribute_group) { ?>
+		                        <div class="content-descr__color">
+		                            <h4 class="content-descr__title">Цвета букета:</h4>
+		                            <div class="content-descr__wrap">
+		                                <div class="content-descr__tags-color-list">
+		                                	<?php foreach ($attribute_group['attribute'] as $attribute) { ?>
+		                                    	<a href="#"><span style="background-color: <?php echo $attribute['text']; ?>;"></span><?php echo $attribute['name']; ?></a>
+                  							<?php } ?> 
+		                                </div>
+		                            </div>
+		                        </div>
+		                        <!-- /.descr__color -->
+	        				<?php } ?>
+        				<?php } ?>
+
                     </div>
                     <!-- /.content-descr__wrap -->
                     
                     <div class="content-descr__text">
                         <h4 class="content-descr__title">Описание букета:</h4>
                         <div class="content-descr__wrap">
-                            <p>Тёплый и уютный пудрово - розовый цвет в наших букетах.</p>
-                            <p>Она не гасла до самого рассвета, а когда утром снова вернулось на свое место солнце, там, где горела и переливалась красками волшебная радуга, расцвели ирисы.</p>
+                            <?php echo $product['description']; ?>
                         </div>
                     </div>
                 </div>
