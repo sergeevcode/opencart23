@@ -44,15 +44,15 @@
             		<?php } ?>
 
                     <div class="content-right" id="product">
-                        <h1 class="content__title"><?php echo $product['name']; ?></h1>
+                        <h1 class="content__title"><?php echo $heading_title; ?></h1>
 
-              			<?php if ($product['price']) { ?>
+              			<?php if ($price) { ?>
 	                        <div class="content-price">
-	                        	<?php if (!$product['special']) { ?>
-		                            <span class="content-price__new"><?php echo $product['price']; ?>.</span>
+	                        	<?php if (!$special) { ?>
+		                            <span class="content-price__new"><?php echo $price; ?>.</span>
 	                        		<?php } else { ?>
-		                            <span class="content-price__new"><?php echo $product['special']; ?></span>
-		                            <span class="content-price__old"><?php echo $product['price']; ?></span>
+		                            <span class="content-price__new"><?php echo $special; ?></span>
+		                            <span class="content-price__old"><?php echo $price; ?></span>
 		                            <div class="h-sale content-sale">10%</div>
 	              				<?php } ?>
 	                        </div>
@@ -75,10 +75,12 @@
                             <div class="content-size__wrap">
 
             					<?php foreach ($options as $option) { ?>
-	                                <div class="content-size__item">
-	                                    <input type="radio" id="option[<?php echo $option['product_option_id']; ?>]" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>">
-	                                    <label for="option[<?php echo $option['product_option_id']; ?>]"><?php echo $option_value['name']; ?></label>
-	                                </div> 
+            						<?php foreach ($option['product_option_value'] as $option_value) { ?>
+		                                <div class="content-size__item">
+		                                    <input type="radio" id="option[<?php echo $option['product_option_id']; ?>]" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>">
+		                                    <label for="option[<?php echo $option['product_option_id']; ?>]"><?php echo html_entity_decode($option_value['name']); ?></label>
+		                                </div> 
+	                				<?php } ?>
                 				<?php } ?>
                             </div>
                         </div>
@@ -155,7 +157,7 @@
                     <div class="content-descr__text">
                         <h4 class="content-descr__title">Описание букета:</h4>
                         <div class="content-descr__wrap">
-                            <?php echo $product['description']; ?>
+                            <?php echo $description; ?>
                         </div>
                     </div>
                 </div>
