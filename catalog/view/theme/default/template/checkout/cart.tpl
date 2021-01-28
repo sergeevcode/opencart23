@@ -8,11 +8,11 @@
 
                 <div class="basket__list">
                 	<?php foreach ($products as $product) { ?>
-                    <div class="basket-item">
+                    <div class="basket-item" data-product="<?php echo $product['cart_id']; ?>">
                     	<?php if ($product['special']) { ?>
 	                        <div class="h-sale basket-sale"><?php echo $product['percents']?>%</div>
 	                    <?php } ?>
-                        <button type="button" class="basket-delete">&#10006;</button>
+                        <button type="button" data-product="<?php echo $product['cart_id']; ?>" class="basket-delete">&#10006;</button>
 
                         <div class="basket__left">
                             <div class="basket__img">
