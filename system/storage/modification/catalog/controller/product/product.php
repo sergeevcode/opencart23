@@ -312,8 +312,10 @@ class ControllerProductProduct extends Controller {
 
 			if ((float)$product_info['special']) {
 				$data['special'] = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+				$data['percents'] = $this->sale_percent($data['price'], $product_info['special']);
 			} else {
 				$data['special'] = false;
+				$data['percents'] = false;
 			}
 
 			if ($this->config->get('config_tax')) {
@@ -756,5 +758,9 @@ class ControllerProductProduct extends Controller {
 
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
+	}
+
+	function sale_percent($price, $sale) {
+		return round((($price - $sale) * 100) / $price, 0);
 	}
 }

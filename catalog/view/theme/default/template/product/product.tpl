@@ -53,7 +53,7 @@
 	                        		<?php } else { ?>
 		                            <span class="content-price__new"><?php echo $special; ?></span>
 		                            <span class="content-price__old"><?php echo $price; ?></span>
-		                            <div class="h-sale content-sale">10%</div>
+		                            <div class="h-sale content-sale"><?php echo $percents; ?>%</div>
 	              				<?php } ?>
 	                        </div>
 	                        <!-- /.content-price -->

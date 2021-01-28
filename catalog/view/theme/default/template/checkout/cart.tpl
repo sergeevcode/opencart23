@@ -10,7 +10,7 @@
                 	<?php foreach ($products as $product) { ?>
                     <div class="basket-item">
                     	<?php if ($product['special']) { ?>
-	                        <div class="h-sale basket-sale">10%</div>
+	                        <div class="h-sale basket-sale"><?php echo $product['percents']?>%</div>
 	                    <?php } ?>
                         <button type="button" class="basket-delete">&#10006;</button>
 
@@ -33,7 +33,7 @@
                                 <div class="basket-price">
                                 	<?php if ($product['special']) { ?>
 	                                    <span class="basket-price__new"><?php echo $product['special']; ?></span>
-	                                    <span class="basket-price__old"><?php echo $product['price']; ?></span>
+	                                    <span class="basket-price__old"><?php echo $product['price_old']; ?></span>
 	                                <?php } else {?> 
 	                                    <span class="basket-price__new"><?php echo $product['price']; ?></span> 
 	                                <?php } ?>

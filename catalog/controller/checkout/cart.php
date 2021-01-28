@@ -128,9 +128,13 @@ class ControllerCheckoutCart extends Controller {
 					$total = false;
 				}
 				if ((float)$product_info['special']) {
-					$special = $this->currency->format($this->tax->calculate($special, $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+					$special = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+					$percents = $this->sale_percent($product_info['price'], $product_info['special']);
+					$price_old = $this->currency->format($product_info['price'], $this->session->data['currency']);
 				} else {
 					$special = false;
+					$price_old = false;
+					$percents = false;
 				}
 
 				$recurring = '';
@@ -168,7 +172,9 @@ class ControllerCheckoutCart extends Controller {
 					'price'     => $price,
 					'total'     => $total,
 					'href'      => $this->url->link('product/product', 'product_id=' . $product['product_id']),
-					'special' => $special
+					'special' => $special,
+					'percents' => $percents,
+					'price_old' => $price_old
 				);
 			}
 
@@ -505,4 +511,9 @@ class ControllerCheckoutCart extends Controller {
 		$this->response->addHeader('Content-Type: application/json');
 		$this->response->setOutput(json_encode($json));
 	}
+
+	function sale_percent($price, $sale) {
+		return round((($price - $sale) * 100) / $price);
+	}
+
 }
