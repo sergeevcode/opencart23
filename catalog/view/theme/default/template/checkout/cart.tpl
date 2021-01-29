@@ -26,10 +26,10 @@
                             <h2 class="basket__title"><?php echo $product['name']; ?> <?php echo html_entity_decode($product['option'][0]['value'])?></h2> 
                             <div class="basket__body">
                                 <div class="basket__amount">
-                                    <div class="amount" data-product="<?php echo $product['cart_id']; ?>">
-                                        <button class="amount__btn-minus">-</button>
+                                    <div class="amount">
+                                        <button class="amount__btn-minus" data-product="<?php echo $product['cart_id']; ?>">-</button>
                                         <input type="text" class="amount__input" name="quantity[<?php echo $product['cart_id']; ?>]" value="<?php echo $product['quantity']; ?>"  maxlength="3">
-                                        <button class="amount__btn-plus">+</button>
+                                        <button class="amount__btn-plus" data-product="<?php echo $product['cart_id']; ?>">+</button>
                                     </div>
                                 </div>
                                 <div class="basket-price">

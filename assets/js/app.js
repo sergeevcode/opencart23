@@ -181,44 +181,7 @@ document.addEventListener("DOMContentLoaded", function() {
     ]
   });
 
-  // Amount
-  const basketAmount = document.querySelectorAll('.amount');
-  basketAmount.forEach(item => {
-    const input = item.querySelector('.amount__input');
-    // input.value = 1;
-    item.addEventListener('click', (event) => {
-      const target = event.target;
-      let count = input.value;
-      if (target.closest('.amount__btn-plus')) {
-        if (count < 999) {
-          count++;
-        }
-      } else if (target.closest('.amount__btn-minus')) {
-        if (count != '0') {
-          count--;
-        } 
-      } 
-      input.value = count;
-      var product = $(".amount").data("product");
-       $.ajax({
-         url: 'index.php?route=checkout/cart/edit',
-         type: 'post',
-         data: 'key=' + product + '&quantity=' + (typeof(count) != 'undefined' ? count : 1),
-         dataType: 'json', 
-         success: function(json) {
-          var newprice = $('.basket-price__new[data-product="'+product+'"]').data("price") * count;
-          $('.basket-price__new[data-product="'+product+'"]').text(newprice + ' руб.');
-          if ($('.basket-price__old[data-product="'+product+'"]').length) {            
-            var oldprice = $('.basket-price__old[data-product="'+product+'"]').data("price") * count;
-            $('.basket-price__old[data-product="'+product+'"]').text(oldprice + ' руб.');
-          }
-
-
-         }, 
-       });
-
-    });
-  });
+ 
 
   // Accordion
   class Accordion {
@@ -458,7 +421,56 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }); 
   });
- 
+  
+  $('.amount__btn-plus').click(function() {
+    var count = $(".amount__input").val(); 
+    count++; 
+    $(".amount__input").val(count);
+    var product = $(this).data('product');
+    var newprice = $('.basket-price__new[data-product="'+product+'"]').data("price") * count;
+    $('.basket-price__new[data-product="'+product+'"]').text(numberWithSpaces(newprice) + ' руб.');
+    if ($('.basket-price__old[data-product="'+product+'"]').length) {            
+      var oldprice = $('.basket-price__old[data-product="'+product+'"]').data("price") * count;
+      $('.basket-price__old[data-product="'+product+'"]').text(numberWithSpaces(oldprice) + ' руб.');
+    }
+
+    $.ajax({
+       url: 'index.php?route=checkout/cart/edit',
+       type: 'post',
+       data: 'key=' + product + '&quantity=' + (typeof(count) != 'undefined' ? count : 1),
+       dataType: 'json', 
+       success: function(json) {
+          return true;
+       }, 
+    });
+  });
+  function numberWithSpaces(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  }
+  $('.amount__btn-minus').click(function() {
+    var count = $(".amount__input").val();
+    if (count != '0') {
+      count--;
+    }
+    var product = $(this).data('product');
+    $(".amount__input").val(count);
+    var newprice = $('.basket-price__new[data-product="'+product+'"]').data("price") * count;
+    $('.basket-price__new[data-product="'+product+'"]').text(numberWithSpaces(newprice) + ' руб.');
+    if ($('.basket-price__old[data-product="'+product+'"]').length) {            
+      var oldprice = $('.basket-price__old[data-product="'+product+'"]').data("price") * count;
+      $('.basket-price__old[data-product="'+product+'"]').text(numberWithSpaces(oldprice) + ' руб.');
+    }
+
+    $.ajax({
+       url: 'index.php?route=checkout/cart/edit',
+       type: 'post',
+       data: 'key=' + product + '&quantity=' + (typeof(count) != 'undefined' ? count : 1),
+       dataType: 'json', 
+       success: function(json) {
+          return true;
+       }, 
+    });
+  });
 
   // var cart = {
   // 'add': function(product_id, quantity) {
