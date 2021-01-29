@@ -1,58 +1,10 @@
-<div id="cart" class="btn-group btn-block">
-  <button type="button" data-toggle="dropdown" data-loading-text="<?php echo $text_loading; ?>" class="btn btn-inverse btn-block btn-lg dropdown-toggle"><i class="fa fa-shopping-cart"></i> <span id="cart-total"><?php echo $text_items; ?></span></button>
-  <ul class="dropdown-menu pull-right">
-    <?php if ($products || $vouchers) { ?>
-    <li>
-      <table class="table table-striped">
-        <?php foreach ($products as $product) { ?>
-        <tr>
-          <td class="text-center"><?php if ($product['thumb']) { ?>
-            <a href="<?php echo $product['href']; ?>"><img src="<?php echo $product['thumb']; ?>" alt="<?php echo $product['name']; ?>" title="<?php echo $product['name']; ?>" class="img-thumbnail" /></a>
-            <?php } ?></td>
-          <td class="text-left"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a>
-            <?php if ($product['option']) { ?>
-            <?php foreach ($product['option'] as $option) { ?>
-            <br />
-            - <small><?php echo $option['name']; ?> <?php echo $option['value']; ?></small>
-            <?php } ?>
-            <?php } ?>
-            <?php if ($product['recurring']) { ?>
-            <br />
-            - <small><?php echo $text_recurring; ?> <?php echo $product['recurring']; ?></small>
-            <?php } ?></td>
-          <td class="text-right">x <?php echo $product['quantity']; ?></td>
-          <td class="text-right"><?php echo $product['total']; ?></td>
-          <td class="text-center"><button type="button" onclick="cart.remove('<?php echo $product['cart_id']; ?>');" title="<?php echo $button_remove; ?>" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td>
-        </tr>
-        <?php } ?>
-        <?php foreach ($vouchers as $voucher) { ?>
-        <tr>
-          <td class="text-center"></td>
-          <td class="text-left"><?php echo $voucher['description']; ?></td>
-          <td class="text-right">x&nbsp;1</td>
-          <td class="text-right"><?php echo $voucher['amount']; ?></td>
-          <td class="text-center text-danger"><button type="button" onclick="voucher.remove('<?php echo $voucher['key']; ?>');" title="<?php echo $button_remove; ?>" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></button></td>
-        </tr>
-        <?php } ?>
-      </table>
-    </li>
-    <li>
-      <div>
-        <table class="table table-bordered">
-          <?php foreach ($totals as $total) { ?>
-          <tr>
-            <td class="text-right"><strong><?php echo $total['title']; ?></strong></td>
-            <td class="text-right"><?php echo $total['text']; ?></td>
-          </tr>
-          <?php } ?>
-        </table>
-        <p class="text-right"><a href="<?php echo $cart; ?>"><strong><i class="fa fa-shopping-cart"></i> <?php echo $text_cart; ?></strong></a>&nbsp;&nbsp;&nbsp;<a href="<?php echo $checkout; ?>"><strong><i class="fa fa-share"></i> <?php echo $text_checkout; ?></strong></a></p>
-      </div>
-    </li>
-    <?php } else { ?>
-    <li>
-      <p class="text-center"><?php echo $text_empty; ?></p>
-    </li>
-    <?php } ?>
-  </ul>
-</div>
+<?php if ($countcart > 0) {?>
+<a href="/cart" class="btn btn-basket">Товары: <span class="cart-count"><?php echo $countcart?></span></a>
+<?php } else { ?>
+<a href="/cart" class="btn btn-basket">Корзина пуста</a>
+<?php } ?>
+<a href="/cart" class="btn-basket-mobile">
+    <svg xmlns="http://www.w3.org/2000/svg" width="29" height="26" viewBox="0 0 29 26">
+        <path fill="#acc9d4" d="M19.683 5.132h8.16c.752 0 .927.236.715.965-.732 2.522-1.466 5.044-2.2 7.565-.183.628-.564.919-1.213.919H14.43c-.642 0-1.002-.259-1.213-.875-.856-2.495-1.71-4.992-2.56-7.488-.24-.7.024-1.084.76-1.086 2.755-.005 5.51-.002 8.266-.002v.002zM5.906.28c.444 1.27.892 2.549 1.337 3.828 1.474 4.24 2.95 8.478 4.414 12.722.087.253.212.307.456.307 4.744-.007 9.488-.005 14.232-.005.886 0 1.512.596 1.507 1.434-.005.815-.631 1.404-1.5 1.404-5.407 0-10.813-.004-16.22.006-.299.001-.423-.09-.52-.368-1.868-5.4-3.748-10.796-5.618-16.195-.08-.233-.176-.333-.441-.325-.733.021-1.467.01-2.2.004C.533 3.085-.076 2.491-.088 1.7-.1.896.515.264 1.344.26 2.823.251 4.302.258 5.78.26c.035 0 .07.011.126.021zM25.93 23.56a2.503 2.503 0 0 1-2.535 2.505c-1.364-.007-2.502-1.17-2.48-2.532.023-1.385 1.153-2.5 2.524-2.49a2.512 2.512 0 0 1 2.49 2.517zm-13.105-2.535c1.39.01 2.507 1.126 2.505 2.5a2.512 2.512 0 0 1-2.545 2.5c-1.406-.022-2.493-1.143-2.48-2.557.014-1.351 1.15-2.453 2.52-2.443z"/>
+    </svg>
+</a>

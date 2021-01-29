@@ -139,7 +139,7 @@ class ControllerCommonCart extends Controller {
 
 		$data['cart'] = $this->url->link('checkout/cart');
 		$data['checkout'] = $this->url->link('checkout/checkout', '', true);
-
+		$data['countcart'] = count($data['products']);
 		return $this->load->view('common/cart', $data);
 	}
 

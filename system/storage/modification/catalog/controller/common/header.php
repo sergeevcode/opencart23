@@ -37,6 +37,12 @@ class ControllerCommonHeader extends Controller {
 
 		$data['name'] = $this->config->get('config_name');
 
+		foreach ($data['links'] as $key => $value) {
+			if ($value['rel'] == 'icon') {
+				unset($data['links'][$key]);
+			}
+		}
+
 		if (is_file(DIR_IMAGE . $this->config->get('config_logo'))) {
 			$data['logo'] = $server . 'image/' . $this->config->get('config_logo');
 		} else {
