@@ -1,20 +1,42 @@
-<div id="carousel<?php echo $module; ?>" class="owl-carousel">
-  <?php foreach ($banners as $banner) { ?>
-  <div class="item text-center">
-    <?php if ($banner['link']) { ?>
-    <a href="<?php echo $banner['link']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-responsive" /></a>
-    <?php } else { ?>
-    <img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-responsive" />
-    <?php } ?>
-  </div>
-  <?php } ?>
-</div>
-<script type="text/javascript"><!--
-$('#carousel<?php echo $module; ?>').owlCarousel({
-	items: 6,
-	autoPlay: 3000,
-	navigation: true,
-	navigationText: ['<i class="fa fa-chevron-left fa-5x"></i>', '<i class="fa fa-chevron-right fa-5x"></i>'],
-	pagination: true
-});
---></script>
+
+    <section class="promo">
+
+        <div class="promo__container">
+
+            <div class="promo-nav-arrow-prev swiper-button-prev"><img src="/assets/images/icons/arrow-slider-left.svg" alt=""></div>
+            <div class="promo-nav-arrow-next swiper-button-next"><img src="/assets/images/icons/arrow-slider-right.svg" alt=""></div>
+
+            <div class="promo-slider swiper-container">
+                <div class="swiper-wrapper">
+            <?php foreach ($banners as $banner) { ?>
+                    <div class="promo-item swiper-slide" style="
+                        background-image: url(<?php echo $banner['image']; ?>);
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        background-position: center;"
+                    >
+                        <div class="container promo-item-container">
+                            <div class="promo-item__title"><?php echo $banner['title']; ?></div>
+                            <div class="promo-item__descr">Авторские букеты</div>
+                            <div class="promo-item__btn">
+                                <a href="<?php echo $banner['link']; ?>" class="btn btn--fill promo-slider__btn">Подробнее</a>
+                            </div>
+                        </div>
+                    </div>
+            <?php } ?>
+ 
+    
+                </div>
+                
+            </div>
+            <!-- /.promo-slider -->
+
+        </div>
+        <!-- /.promo__container -->
+
+        <div class="promo-descr">
+            <h1>Доставка цветов в Оренбурге</h1>
+        </div>
+    </section>
+    <!-- /.promo -->
+
