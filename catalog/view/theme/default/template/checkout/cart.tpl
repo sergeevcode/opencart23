@@ -34,10 +34,10 @@
                                 </div>
                                 <div class="basket-price">
                                 	<?php if ($product['special']) { ?>
-	                                    <span class="basket-price__new" data-product="<?php echo $product['cart_id']; ?>" data-price="<?=$product['total']?>"><?php echo number_format($product['total'], 0, '', ' '); ?>  руб.</span>
-	                                    <span class="basket-price__old" data-product="<?php echo $product['cart_id']; ?>" data-price="<?=$product['price_old']?>"><?php echo number_format($product['price_old'], 0, '', ' '); ?>  руб.</span>
+	                                    <span class="basket-price__new" data-product="<?php echo $product['cart_id']; ?>" data-price="<?=$product['price_by_one']?>"><?php echo number_format($product['total'], 0, '', ' '); ?>  руб.</span>
+	                                    <span class="basket-price__old" data-product="<?php echo $product['cart_id']; ?>" data-price="<?=$product['price_by_one']?>"><?php echo number_format($product['price_old'], 0, '', ' '); ?>  руб.</span>
 	                                <?php } else {?> 
-	                                    <span class="basket-price__new" data-product="<?php echo $product['cart_id']; ?>" data-price="<?=$product['total']?>"><?php echo number_format($product['total'], 0, '', ' '); ?>  руб.</span> 
+	                                    <span class="basket-price__new" data-product="<?php echo $product['cart_id']; ?>" data-price="<?=$product['price_by_one']?>"><?php echo number_format($product['total'], 0, '', ' '); ?>  руб.</span> 
 	                                <?php } ?>
                                 </div>
                             </div>

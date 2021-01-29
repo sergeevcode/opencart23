@@ -145,8 +145,10 @@ class ControllerCheckoutCart extends Controller {
 				if ((float)$product_info['special']) {
 					$total_price += $product_info['special'] * $product['quantity'];
 					$sale += ($product_info['price'] - $product_info['special']) * $product['quantity'];
+					$price_by_one =  $product_info['special'];
 				}  else {
 					$total_price += $product_info['price'] * $product['quantity'];
+					$price_by_one =  $product_info['price'];
 				}
 
 				$summ += $product_info['price'] * $product['quantity'];
@@ -192,6 +194,7 @@ class ControllerCheckoutCart extends Controller {
 					'special' => $special,
 					'percents' => $percents,
 					'price_old' => $price_old, 
+					'price_by_one' => $price_by_one
 				);
 			}
 			$data['total_price'] = number_format($total_price, 0, '', ' ');
