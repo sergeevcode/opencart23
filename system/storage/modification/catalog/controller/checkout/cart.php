@@ -76,6 +76,10 @@ class ControllerCheckoutCart extends Controller {
 			$products = $this->cart->getProducts();
 
 			$this->load->model('catalog/product');
+
+			$total_price = 0;
+			$summ = 0;
+			$sale = 0;
 			foreach ($products as $product) {
 				$product_total = 0;
 				$product_info = $this->model_catalog_product->getProduct($product['product_id']);
@@ -113,7 +117,7 @@ class ControllerCheckoutCart extends Controller {
 
 					$option_data[] = array(
 						'name'  => $option['name'],
-						'value' => (utf8_strlen($value) > 20 ? utf8_substr($value, 0, 20) . '..' : $value)
+						'value' => $value
 					);
 				}
 
@@ -121,21 +125,34 @@ class ControllerCheckoutCart extends Controller {
 				if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 					$unit_price = $this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax'));
 					
-					$price = $this->currency->format($unit_price, $this->session->data['currency']);
-					$total = $this->currency->format($unit_price * $product['quantity'], $this->session->data['currency']);
+					$price = $unit_price;
+					$total = $unit_price * $product['quantity'];
 				} else {
 					$price = false;
 					$total = false;
 				}
 				if ((float)$product_info['special']) {
-					$special = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+					$special =$this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax'));
 					$percents = $this->sale_percent($product_info['price'], $product_info['special']);
-					$price_old = $this->currency->format($product_info['price'], $this->session->data['currency']);
+
+					$unit_price = $this->tax->calculate($product_info['price'], $product['tax_class_id'], $this->config->get('config_tax'));
+					$price_old = $unit_price * $product['quantity']; 
 				} else {
 					$special = false;
 					$price_old = false;
 					$percents = false;
 				}
+				if ((float)$product_info['special']) {
+					$total_price += $product_info['special'] * $product['quantity'];
+					$sale += ($product_info['price'] - $product_info['special']) * $product['quantity'];
+				}  else {
+					$total_price += $product_info['price'] * $product['quantity'];
+				}
+
+				$summ += $product_info['price'] * $product['quantity'];
+
+
+
 
 				$recurring = '';
 
@@ -174,10 +191,12 @@ class ControllerCheckoutCart extends Controller {
 					'href'      => $this->url->link('product/product', 'product_id=' . $product['product_id']),
 					'special' => $special,
 					'percents' => $percents,
-					'price_old' => $price_old
+					'price_old' => $price_old, 
 				);
 			}
-
+			$data['total_price'] = number_format($total_price, 0, '', ' ');
+			$data['sale'] = number_format($sale, 0, '', ' ');
+			$data['summ'] = number_format($summ, 0, '', ' ');
 			// Gift Voucher
 			$data['vouchers'] = array();
 
@@ -423,9 +442,9 @@ class ControllerCheckoutCart extends Controller {
 
 		// Update
 		if (!empty($this->request->post['quantity'])) {
-			foreach ($this->request->post['quantity'] as $key => $value) {
-				$this->cart->update($key, $value);
-			}
+			// foreach ($this->request->post['quantity'] as $key => $value) {
+				$this->cart->update($this->request->post['key'], $this->request->post['quantity']);
+			// }
 
 			$this->session->data['success'] = $this->language->get('text_remove');
 
@@ -437,7 +456,7 @@ class ControllerCheckoutCart extends Controller {
 			if (count($this->session->data['cart']) == 0){ unset($this->session->data['addictive']);     }
 			
 
-			$this->response->redirect($this->url->link('checkout/cart'));
+			// $this->response->redirect($this->url->link('checkout/cart'));
 		}
 
 		$this->response->addHeader('Content-Type: application/json');

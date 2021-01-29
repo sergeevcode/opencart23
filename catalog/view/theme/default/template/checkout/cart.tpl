@@ -20,22 +20,24 @@
                             </div>
                         </div>
 
+
+
                         <div class="basket__right">
-                            <h2 class="basket__title"><?php echo $product['name']; ?></h2>
+                            <h2 class="basket__title"><?php echo $product['name']; ?> <?php echo html_entity_decode($product['option'][0]['value'])?></h2> 
                             <div class="basket__body">
                                 <div class="basket__amount">
-                                    <div class="amount">
+                                    <div class="amount" data-product="<?php echo $product['cart_id']; ?>">
                                         <button class="amount__btn-minus">-</button>
-                                        <input type="text" class="amount__input" name="quantity[<?php echo $product['cart_id']; ?>]" value="<?php echo $product['quantity']; ?>" size="1"  maxlength="3">
+                                        <input type="text" class="amount__input" name="quantity[<?php echo $product['cart_id']; ?>]" value="<?php echo $product['quantity']; ?>"  maxlength="3">
                                         <button class="amount__btn-plus">+</button>
                                     </div>
                                 </div>
                                 <div class="basket-price">
                                 	<?php if ($product['special']) { ?>
-	                                    <span class="basket-price__new"><?php echo $product['special']; ?></span>
-	                                    <span class="basket-price__old"><?php echo $product['price_old']; ?></span>
+	                                    <span class="basket-price__new" data-product="<?php echo $product['cart_id']; ?>" data-price="<?=$product['total']?>"><?php echo number_format($product['total'], 0, '', ' '); ?>  руб.</span>
+	                                    <span class="basket-price__old" data-product="<?php echo $product['cart_id']; ?>" data-price="<?=$product['price_old']?>"><?php echo number_format($product['price_old'], 0, '', ' '); ?>  руб.</span>
 	                                <?php } else {?> 
-	                                    <span class="basket-price__new"><?php echo $product['price']; ?></span> 
+	                                    <span class="basket-price__new" data-product="<?php echo $product['cart_id']; ?>" data-price="<?=$product['total']?>"><?php echo number_format($product['total'], 0, '', ' '); ?>  руб.</span> 
 	                                <?php } ?>
                                 </div>
                             </div>
@@ -52,17 +54,20 @@
                     
                     <div class="basket-total__wrap">
                         <div class="basket-total__head">
-
-           	 				<?php foreach ($totals as $total) { ?>
+ 
                             <div class="basket-total__block">
-                                <div class="basket-total__txt"><?php echo $total['title']; ?>:</div>
-                                <div class="basket-total__descr"><?php echo $total['text']; ?></div>
-                            </div> 
-            				<?php } ?>
+                                <div class="basket-total__txt">Сумма:</div>
+                                <div class="basket-total__descr"><?php echo $summ; ?> руб.</div>
+                            </div>  
+ 
+                            <div class="basket-total__block">
+                                <div class="basket-total__txt">Скидка:</div>
+                                <div class="basket-total__descr"><?php echo $sale; ?> руб.</div>
+                            </div>  
                         </div>
 
                         <div class="basket-total__bottom">
-                            <div class="basket-total__sum">Итого: <span><?php echo $total['text']?></span></div>
+                            <div class="basket-total__sum">Итого: <span><?php echo $total_price?> руб.</span></div>
                             <a href="<?php echo $checkout; ?>" class="btn btn--fill basket-total__btn">Оформить заказ</a>
                         </div>
                     </div>
