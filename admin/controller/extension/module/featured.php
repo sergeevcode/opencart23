@@ -140,6 +140,14 @@ class ControllerExtensionModuleFeatured extends Controller {
 			$data['limit'] = 5;
 		}
 
+		if (isset($this->request->post['class'])) {
+			$data['class'] = $this->request->post['class'];
+		} elseif (!empty($module_info)) {
+			$data['class'] = $module_info['class'];
+		} else {
+			$data['class'] = '.mono';
+		}
+
 		if (isset($this->request->post['width'])) {
 			$data['width'] = $this->request->post['width'];
 		} elseif (!empty($module_info)) {

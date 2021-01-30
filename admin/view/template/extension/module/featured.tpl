@@ -47,6 +47,14 @@
               </div>
             </div>
           </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-class">Класс стилей блока</label>
+            <div class="col-sm-10">
+              <input type="text" name="class" value="<?php echo $class; ?>" placeholder="Класс стилей блока" id="input-class" class="form-control" />
+            </div>
+          </div>
+
           <div class="form-group">
             <label class="col-sm-2 control-label" for="input-limit"><?php echo $entry_limit; ?></label>
             <div class="col-sm-10">

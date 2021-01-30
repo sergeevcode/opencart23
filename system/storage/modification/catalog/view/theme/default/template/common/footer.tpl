@@ -60,7 +60,7 @@
       								<?php } ?>
                                 </ul>
                             </nav>
-                            <a href="#" class="btn footer-right__btn">Эксклюзивный букет</a>
+                            <a href="#" data-link-id="exclusive-modal" class="btn footer-right__btn">Эксклюзивный букет</a>
                         </div>
       					<?php } ?>
                     </div>
@@ -70,6 +70,7 @@
             <!-- /.container -->
         </div>
     </footer>
+
 
     <div class="modal" data-modal-id="exclusive-modal">
         <div class="modal__window">
@@ -103,6 +104,40 @@
         </div>
     </div>
     <!-- /.modal -->
+
+    <div class="modal" data-modal-id="basket-modal">
+        <div class="modal__window">
+    
+            <div class="modal__content">
+                <button class="modal-close">&#10006;</button>
+                
+                <div class="modal__title">Товар добавлен в корзину</div>
+
+                <div class="card modal-card">
+                    <a href="#">
+                        <div class="card__pic" style="background-image: url('images/card/card-3.png');"></div>
+                    </a>
+                    <div class="card-top">
+                        <div class="card-sale v-sale"><span>80%</span></div>
+                        <div class="card-new v-new"><span>new</span></div>
+                    </div>
+                    <div class="card__wrap">
+                        <h3 class="card__title"><a href="#">Авторский букет “Гармония”</a></h3>
+                        <div class="card__price">3 500 руб.</div>
+                    </div>
+                    <div class="modal-card-bottom">
+                        <button class="btn btn--fill modal-card__btn">Продолжить</button>
+                        <button class="btn btn--dark modal-card__btn">Перейти в корзину</button>
+                    </div>
+                </div>
+                
+            </div>
+            <!-- /.modal__content -->
+    
+        </div>
+    </div>
+    <!-- /.modal -->
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="/assets/js/slick.min.js"></script>
