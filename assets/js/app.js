@@ -475,6 +475,19 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 	});
 
+
+	$("form.modal-form").submit(function(e){
+		e.preventDefault();
+		$(this).parent('.modal__content').find('.modal__title').text('Успешно');
+		$(this).hide();
+		if (!$(this).hasClass("review-form")) {
+			$(this).parent('.modal__content').append('<p>Заявка успешно отправлена</p>');
+		} else {
+			$(this).parent('.modal__content').append('<p>Отзыв успешно отправлен</p>');
+		}
+
+		return false;
+	});
 	// var cart = {
 	// 'add': function(product_id, quantity) {
 	//  $.ajax({

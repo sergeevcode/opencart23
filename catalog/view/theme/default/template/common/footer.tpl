@@ -146,7 +146,7 @@
                 
                 <div class="modal__title">Отзыв</div>
 
-                <form action="#" class="modal-form">
+                <form action="#" class="modal-form review-form">
                     <div class="input">
                         <label class="order-label" for="user-name">Имя*</label>
                         <input class="order-input" type="text" name="user-name" id="user-name" required>
