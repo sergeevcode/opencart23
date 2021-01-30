@@ -83,7 +83,7 @@
             							$i++;
             						?>
 		                                <div class="content-size__item">
-		                                    <input type="radio" id="option_<?php echo $option['product_option_id'].$i; ?>" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>">
+		                                    <input type="radio" id="option_<?php echo $option['product_option_id'].$i; ?>" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" <?php echo ($i==1) ? 'checked' : ''?>>
 		                                    <label for="option_<?php echo $option['product_option_id'].$i; ?>"><?php echo html_entity_decode($option_value['name']); ?></label>
 		                                </div> 
 	                				<?php } ?>
@@ -131,7 +131,7 @@
                                 <div class="content-descr__tags-list">
 									<?php for ($i = 0; $i < count($tags); $i++) { ?>
 								        <?php if ($i < (count($tags) - 1)) { ?>
-								        	<a href="<?php echo $tags[$i]['href']; ?>"><?php echo $tags[$i]['tag']; ?></a>,
+								        	<a href="<?php echo $tags[$i]['href']; ?>"><?php echo $tags[$i]['tag']; ?></a>
 							        	<?php } else { ?>
 								        	<a href="<?php echo $tags[$i]['href']; ?>"><?php echo $tags[$i]['tag']; ?></a>
 								        <?php } ?>

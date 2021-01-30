@@ -395,16 +395,28 @@ document.addEventListener("DOMContentLoaded", function() {
 			"background-image" : "url('"+$(this).data("image")+"')"
 		});
 
-			$.ajax({
-				url: 'index.php?route=checkout/cart/add',
-				type: 'post',
-				data: $('#product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
-				dataType: 'json',
-			
-				success: function(json) { 
-					 
-				}
-			});
+		$.ajax({
+			url: 'index.php?route=checkout/cart/add',
+			type: 'post',
+			data: $('#product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
+			dataType: 'json',
+		
+			success: function(json) { 
+				 
+			}
+		});
+	});
+
+	$(".card__btn").click(function(){ 
+		$.ajax({
+			url: 'index.php?route=checkout/cart/add',
+			type: 'post',
+			data: $(this).parent(".card__basket").parent("form").serialize(), 
+		
+			success: function(json) { 
+				 
+			}
+		});
 	});
 
 	$(".basket-delete").on('click', function(){

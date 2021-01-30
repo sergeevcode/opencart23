@@ -6,12 +6,11 @@
                 <div class="swiper-wrapper">
                 	<?php foreach ($products as $product) { ?>
                     <div class="swiper-slide">
-
                         <div class="card">
                             <a href="<?php echo $product['href']; ?>">
                                 <div class="card__pic" style="background-image: url('<?php echo $product['thumb']; ?>');"></div>
                             </a>
-                            <div class="card-top">
+                            <div class="card-top" style="display: none;">
                                 <div class="card-sale v-sale"><span>80%</span></div>
                                 <div class="card-new v-new"><span>new</span></div>
                             </div>
@@ -23,6 +22,7 @@
                                 <div class="card__price"><?php echo $product['special']; ?></div>	
 				            	<?php } ?> 
                                 <div class="card__overlay">
+                                    <form class="form-slide">
                                     <div class="card__block">
                                     	<?php 
 		            					$i = 0;
@@ -32,20 +32,23 @@
 		            							$i++;
 		            						?>
 		                                        <div class="card__item">
-		                                           <input type="radio" id="option_<?php echo $option['product_option_id'].$i; ?>" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>">
+		                                           <input type="radio" id="option_<?php echo $option['product_option_id'].$i; ?>" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" <?php echo ($i==1) ? 'checked' : ''?>>
 		                                    		<label for="option_<?php echo $option['product_option_id'].$i; ?>"><?php echo html_entity_decode($option_value['name']); ?></label>
 		                                        </div> 
 			                				<?php } ?>
 		                				<?php } ?>
                                     </div>
                                     <div class="card__basket">
+                                        <input type="hidden" name="quantity" value="1">
+                                        <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>" />
                                         <button class="btn btn--dark card__btn" data-link-id="basket-modal">В корзину</button>
+                                        
                                         <button class="btn btn--fill card__btn">Купить в 1 клик</button>
                                     </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-
                     </div>
           			<?php } ?>
  
