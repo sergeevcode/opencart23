@@ -117,7 +117,7 @@
                     <a href="#">
                         <div class="card__pic" style="background-image: url('images/card/card-3.png');"></div>
                     </a>
-                    <div class="card-top">
+                    <div class="card-top" style="display: none;">
                         <div class="card-sale v-sale"><span>80%</span></div>
                         <div class="card-new v-new"><span>new</span></div>
                     </div>
@@ -127,9 +127,45 @@
                     </div>
                     <div class="modal-card-bottom">
                         <button class="btn btn--fill modal-card__btn">Продолжить</button>
-                        <button class="btn btn--dark modal-card__btn">Перейти в корзину</button>
+                        <button class="btn btn--dark modal-card__btn" onclick="location.replace('/cart')">Перейти в корзину</button>
                     </div>
                 </div>
+                
+            </div>
+            <!-- /.modal__content -->
+    
+        </div>
+    </div>
+    <!-- /.modal -->
+
+    <div class="modal" data-modal-id="feedback-modal">
+        <div class="modal__window">
+    
+            <div class="modal__content">
+                <button class="modal-close">&#10006;</button>
+                
+                <div class="modal__title">Отзыв</div>
+
+                <form action="#" class="modal-form">
+                    <div class="input">
+                        <label class="order-label" for="user-name">Имя*</label>
+                        <input class="order-input" type="text" name="user-name" id="user-name" required>
+                    </div>
+                    <div class="input">
+                        <label class="order-label" for="user-phone">Телефон*</label>
+                        <input class="order-input" type="tel" name="user-phone" id="user-phone" required>
+                    </div>
+                    <div class="user-message">
+                        <textarea name="message" placeholder="Ваше сообщение..."></textarea>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" name="send-review" id="send-review" checked>
+                        <label for="delivery-sms">
+                            <span>Нажимая кнопку «Оставить отзыв!», Вы даете свое согласие на обработку персональных данных в соответствии с <a href="/privacy" target="_blank" rel="noopener noreferrer">Политикой обработки персональных данных</a></span>
+                        </label>
+                    </div>
+                    <button class="btn btn--fill btn-modal">Оставить отзыв</button>
+                </form>
                 
             </div>
             <!-- /.modal__content -->

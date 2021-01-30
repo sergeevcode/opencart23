@@ -387,7 +387,14 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 (function($){
+
 	$('#button-cart').on('click', function() {
+		$(".modal-card").find("a").attr("href", "#");
+		$(".modal-card").find(".card__title a").text($(this).data("name"));
+		$(".modal-card").find(".card__pic").css({
+			"background-image" : "url('"+$(this).data("image")+"')"
+		});
+
 			$.ajax({
 				url: 'index.php?route=checkout/cart/add',
 				type: 'post',
@@ -395,13 +402,8 @@ document.addEventListener("DOMContentLoaded", function() {
 				dataType: 'json',
 			
 				success: function(json) { 
-					if (json['success']) {
-						$('#button-cart').text("В корзине")
-					}
-				},
-					error: function(xhr, ajaxOptions, thrownError) {
-							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-					}
+					 
+				}
 			});
 	});
 

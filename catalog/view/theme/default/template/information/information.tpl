@@ -3,8 +3,13 @@
         <div class="container">
 
             <h1 class="main__title"><?php echo $heading_title; ?></h1>
-
-            <?php echo $description; ?>
+			<div class="page">
+                <div class="page__wrap">
+           			<?php echo $description; ?>
+                </div>
+                <!-- /.page__wrap -->
+            </div>
+            <!-- /.feedback -->
 
         </div>
     </main> 

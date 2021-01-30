@@ -32,7 +32,7 @@
 
                         <div class="feedback-write">
                             <div class="feedback-write__icon"></div>
-                            <button class="btn btn--white feedback-write__btn">Оставить отзыв</button>
+                            <button class="btn btn--white feedback-write__btn" data-link-id="feedback-modal">Оставить отзыв</button>
                         </div>
                         <!-- /.feedback-write -->
 
@@ -48,4 +48,5 @@
         <!-- /.container -->
         
     </main>
+
 <?php echo $footer; ?>

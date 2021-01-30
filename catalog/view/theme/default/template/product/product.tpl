@@ -94,7 +94,7 @@
         				<?php } ?>
                         <div class="content-basket">
                         	<input type="hidden" name="product_id" value="<?php echo $product_id; ?>" />
-                            <button id="button-cart" class="btn btn--dark btn-basket content-basket__btn">Добавить В корзину</button>
+                            <button id="button-cart" data-link-id="basket-modal" data-image="<?php echo $thumb; ?>" data-name="<?php echo $heading_title; ?>" data-href="" class="btn btn--dark btn-basket content-basket__btn">Добавить В корзину</button>
                             <button class="btn btn--fill content-basket__btn--buy">Купить в 1 клик</button>
                         </div>
                         <!-- /.content-basket -->
