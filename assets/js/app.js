@@ -402,8 +402,9 @@ document.addEventListener("DOMContentLoaded", function() {
 			data: $('#product input[type=\'text\'], #product input[type=\'hidden\'], #product input[type=\'radio\']:checked, #product input[type=\'checkbox\']:checked, #product select, #product textarea'),
 			dataType: 'json',
 		
-			success: function(json) { 
-				 
+			success: function(json) {  
+				console.log($("span.cart-count").val());
+				$("span.cart-count").val(parseInt($("span.cart-count").val()) + 1);
 			}
 		});
 	});
@@ -423,8 +424,9 @@ document.addEventListener("DOMContentLoaded", function() {
 			type: 'post',
 			data: $(this).parent(".card__basket").parent("form").serialize(), 
 		
-			success: function(json) { 
-				 
+			success: function(json) { 				
+				console.log($("span.cart-count").text()); 
+				$("span.cart-count").text(parseInt($("span.cart-count").text()) + 1);
 			}
 		});
 	});

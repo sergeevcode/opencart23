@@ -1,7 +1,7 @@
 <?php if ($countcart > 0) {?>
 <a href="/cart" class="btn btn-basket">Товары: <span class="cart-count"><?php echo $countcart?></span></a>
 <?php } else { ?>
-<a href="/cart" class="btn btn-basket">Товары</a>
+<a href="/cart" class="btn btn-basket">Товары <span class="cart-count"></span></a>
 <?php } ?>
 <a href="/cart" class="btn-basket-mobile">
     <svg xmlns="http://www.w3.org/2000/svg" width="29" height="26" viewBox="0 0 29 26">

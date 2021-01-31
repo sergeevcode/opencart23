@@ -126,6 +126,28 @@ class ControllerCommonHeader extends Controller {
 			}
 		}
 
+		$data['locations'] = array();
+		$data['instagram'] = $this->config->get('config_comment');
+		$this->load->model('localisation/location');
+
+		foreach((array)$this->config->get('config_location') as $location_id) {
+			$location_info = $this->model_localisation_location->getLocation($location_id);
+
+			if ($location_info) {
+				if ($location_info['image']) {
+					$image = $this->model_tool_image->resize($location_info['image'], $this->config->get($this->config->get('config_theme') . '_image_location_width'), $this->config->get($this->config->get('config_theme') . '_image_location_height'));
+				} else {
+					$image = false;
+				}
+
+				$data['locations'][] = array( 
+					'telephone'   => $location_info['telephone'],
+					'telephone_publish' => $this->phone_number($location_info['telephone']), 
+				);
+			}
+		}
+
+
 		// Menu
 		$this->load->model('catalog/category');
 
@@ -189,5 +211,31 @@ class ControllerCommonHeader extends Controller {
 		}
 
 		return $this->load->view('common/header', $data);
+	}
+
+	function phone_number($phone){
+		$phone = trim($phone);
+	 
+		$res = preg_replace(
+			array(
+				'/[\+]?([7|8])[-|\s]?\([-|\s]?(\d{4})[-|\s]?\)[-|\s]?(\d{2})[-|\s]?(\d{2})[-|\s]?(\d{2})/',
+				'/[\+]?([7|8])[-|\s]?(\d{4})[-|\s]?(\d{2})[-|\s]?(\d{2})[-|\s]?(\d{2})/',
+				'/[\+]?([7|8])[-|\s]?\([-|\s]?(\d{4})[-|\s]?\)[-|\s]?(\d{2})[-|\s]?(\d{2})[-|\s]?(\d{2})/',
+				'/[\+]?([7|8])[-|\s]?(\d{4})[-|\s]?(\d{2})[-|\s]?(\d{2})[-|\s]?(\d{2})/',	
+				'/[\+]?([7|8])[-|\s]?\([-|\s]?(\d{4})[-|\s]?\)[-|\s]?(\d{3})[-|\s]?(\d{3})/',
+				'/[\+]?([7|8])[-|\s]?(\d{4})[-|\s]?(\d{3})[-|\s]?(\d{3})/',					
+			), 
+			array(
+				'+7 ($2) $3-$4-$5', 
+				'+7 ($2) $3-$4-$5', 
+				'+7 ($2) $3-$4-$5', 
+				'+7 ($2) $3-$4-$5', 	
+				'+7 ($2) $3-$4', 
+				'+7 ($2) $3-$4', 
+			), 
+			$phone
+		);
+	 
+		return $res;
 	}
 }

@@ -5,7 +5,8 @@
 
             <div class="<?php echo $class?>-slider swiper-container">
                 <div class="swiper-wrapper">
-                	<?php foreach ($products as $product) { ?>
+                	<?php 
+                    foreach ($products as $product) { ?>
                     <div class="swiper-slide">
                         <div class="card">
                             <a href="<?php echo $product['href']; ?>">
@@ -26,13 +27,15 @@
                                     <form class="form-slide">
                                     <div class="card__block">
                                     	<?php 
-		            					foreach ($product['options'] as $option) { 		       						
+		            					foreach ($product['options'] as $option) { 	
+                                        $p = 0;	       						
 		            					?>
 		            						<?php foreach ($option['product_option_value'] as $option_value) { 
+                                                $p++;
 		            							$i = rand(0, 100);
 		            						?>
 		                                        <div class="card__item">
-		                                           <input type="radio" id="option_<?php echo $option['product_option_id'].$i; ?>" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" <?php echo ($i==1) ? 'checked' : ''?>>
+		                                           <input type="radio" id="option_<?php echo $option['product_option_id'].$i; ?>" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" <?php echo ($p==1) ? 'checked' : ''?>>
 		                                    		<label for="option_<?php echo $option['product_option_id'].$i; ?>"><?php echo html_entity_decode($option_value['name']); ?></label>
 		                                        </div> 
 			                				<?php } ?>

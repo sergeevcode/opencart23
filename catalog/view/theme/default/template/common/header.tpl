@@ -60,12 +60,13 @@
     
                     <div class="header-right-bottom">
                         <div class="call-me">
-                            <a href="tel:+73532902202" class="call-me__tel">+7 (3532) 90-22-02</a>
-                            <a href="tel:+73532919119" class="call-me__tel">+7 (3532) 91-91-19</a>
-                            <button class="call-me__btn">Перезвоните мне</button>
+                            <?php foreach ($locations as $location) {?>
+                            <a href="tel:<?php echo $location['telephone']?>" class="call-me__tel"><?php echo $location['telephone_publish']?></a>
+                            <?php } ?> 
+                            <button class="call-me__btn" data-link-id="callback-modal">Перезвоните мне</button>
                         </div>
                         <div class="header__inst">
-                            <a href="https://www.instagram.com/pravdacveti_oren/" target="_blank" rel="noopener noreferrer">
+                            <a href="<?php echo $instagram; ?>" target="_blank" rel="noopener noreferrer">
                                 <img src="/assets/images/icons/instagram.svg" alt="Instagram">
                             </a>
                         </div>
@@ -147,7 +148,7 @@
                     <div class="main-nav__menu-block">
                         <a href="tel:+73532902202" class="call-me__tel">+7 (3532) 90-22-02</a>
                         <a href="tel:+73532919119" class="call-me__tel">+7 (3532) 91-91-19</a>
-                        <button class="call-me__btn">Перезвоните мне</button>
+                        <button class="call-me__btn" data-link-id="callback-modal">Перезвоните мне</button>
                     </div>
                 </ul>
             </nav>

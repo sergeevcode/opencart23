@@ -11,17 +11,18 @@
                         <div class="phones">
                             <div class="phones__title">Телефоны:</div>
                             <div class="phones__list">
-                                <a href="tel:+73532902202">+7 (3532) 90-22-02</a>
-                                <a href="tel:+73532919119">+7 (3532) 91-91-19</a>
+                                <?php foreach ($locations as $location) {?>
+                                <a href="tel:<?php echo $location['telephone']?>" class="call-me__tel"><?php echo $location['telephone_publish']?></a>
+                                <?php } ?> 
                             </div>
                         </div>
                         <div class="footer-soc">
                             <div class="footer-soc__item">
                                 <div class="footer-soc__icon">
-                                    <a href="https://www.instagram.com/pravdacveti_oren/" target="_blank" rel="noopener noreferrer"><img src="/assets/images/icons/instagram.svg" alt="instagram"></a>
+                                    <a href="<?php echo $instagram; ?>" target="_blank" rel="noopener noreferrer"><img src="/assets/images/icons/instagram.svg" alt="instagram"></a>
                                 </div>
                                 <div class="footer-soc__name">
-                                    <a href="https://www.instagram.com/pravdacveti_oren/" target="_blank" rel="noopener noreferrer">Instagram</a>
+                                    <a href="<?php echo $instagram; ?>" target="_blank" rel="noopener noreferrer">Instagram</a>
                                 </div>
                             </div>
                         </div>
@@ -71,6 +72,39 @@
         </div>
     </footer>
 
+
+    <div class="modal" data-modal-id="callback-modal">
+        <div class="modal__window">
+    
+            <div class="modal__content">
+                <button class="modal-close">&#10006;</button>
+                
+                <div class="modal__title">Перезвоните мне</div>
+
+                <form action="#" class="modal-form">
+                    <div class="input">
+                        <label class="order-label" for="user-name">Имя*</label>
+                        <input class="order-input" type="text" name="user-name" id="user-name" required>
+                    </div>
+                    <div class="input">
+                        <label class="order-label" for="user-phone">Телефон*</label>
+                        <input class="order-input" type="tel" name="user-phone" id="user-phone" required>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" name="callme" id="callme" checked>
+                        <label for="callme">
+                            <span>Нажимая кнопку «Жду звонка!», Вы даете свое согласие на обработку персональных данных в соответствии с <a href="#" target="_blank" rel="noopener noreferrer">Политикой обработки персональных данных</a></span>
+                        </label>
+                    </div>
+                    <button class="btn btn--fill btn-modal">Жду звонка!</button>
+                </form>
+                
+            </div>
+            <!-- /.modal__content -->
+    
+        </div>
+    </div>
+    <!-- /.modal -->
 
     <div class="modal" data-modal-id="exclusive-modal">
         <div class="modal__window">
@@ -160,7 +194,7 @@
                     </div>
                     <div class="checkbox">
                         <input type="checkbox" name="send-review" id="send-review" checked>
-                        <label for="delivery-sms">
+                        <label for="send-review">
                             <span>Нажимая кнопку «Оставить отзыв!», Вы даете свое согласие на обработку персональных данных в соответствии с <a href="/privacy" target="_blank" rel="noopener noreferrer">Политикой обработки персональных данных</a></span>
                         </label>
                     </div>
