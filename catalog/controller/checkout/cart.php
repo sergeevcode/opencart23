@@ -464,6 +464,10 @@ class ControllerCheckoutCart extends Controller {
 		$this->response->setOutput(json_encode($json));
 	}
 
+    public function clear() {
+        $this->cart->clear();
+    }
+
 	public function remove() {
 		$this->load->language('checkout/cart');
 

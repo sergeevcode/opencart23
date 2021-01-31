@@ -30,7 +30,7 @@ class Pagination {
 
 		$this->url = str_replace('%7Bpage%7D', '{page}', $this->url);
 
-		$output = '<ul class="pagination">';
+		$output = '<ul class="pagination-list">';
 
 		if ($page > 1) {
 			

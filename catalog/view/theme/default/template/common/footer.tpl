@@ -82,6 +82,7 @@
                 <div class="modal__title">Перезвоните мне</div>
 
                 <form action="#" class="modal-form">
+                    <input type="hidden" name="subject" value="callback">
                     <div class="input">
                         <label class="order-label" for="user-name">Имя*</label>
                         <input class="order-input" type="text" name="user-name" id="user-name" required>
@@ -115,6 +116,7 @@
                 <div class="modal__title">Эксклюзивный букет</div>
 
                 <form action="#" class="modal-form">
+                    <input type="hidden" name="subject" value="exclusive">
                     <div class="input">
                         <label class="order-label" for="user-name">Имя*</label>
                         <input class="order-input" type="text" name="user-name" id="user-name" required>
@@ -181,6 +183,7 @@
                 <div class="modal__title">Отзыв</div>
 
                 <form action="#" class="modal-form review-form">
+                    <input type="hidden" name="subject" value="review">
                     <div class="input">
                         <label class="order-label" for="user-name">Имя*</label>
                         <input class="order-input" type="text" name="user-name" id="user-name" required>
@@ -189,8 +192,9 @@
                         <label class="order-label" for="user-phone">Телефон*</label>
                         <input class="order-input" type="tel" name="user-phone" id="user-phone" required>
                     </div>
-                    <div class="user-message">
-                        <textarea name="message" placeholder="Ваше сообщение..."></textarea>
+                    <div class="input user-message">
+                        <label class="order-label" for="user-phone">Отзыв*</label>
+                        <textarea name="message" placeholder="Ваше сообщение..." required></textarea>
                     </div>
                     <div class="checkbox">
                         <input type="checkbox" name="send-review" id="send-review" checked>

@@ -502,14 +502,22 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	$("form.modal-form").submit(function(e){
 		e.preventDefault();
-		$(this).parent('.modal__content').find('.modal__title').text('Успешно');
-		$(this).hide();
-		if (!$(this).hasClass("review-form")) {
-			$(this).parent('.modal__content').append('<p>Заявка успешно отправлена</p>');
-		} else {
-			$(this).parent('.modal__content').append('<p>Отзыв успешно отправлен</p>');
-		}
+		var form = $(this);
+		$.ajax({
+			url: 'index.php?route=extension/module/send',
+			type: 'post',
+			data: $(this).serialize(),
+			success: function() {						
+				form.parent('.modal__content').find('.modal__title').text('Успешно');
+				form.hide();
+				if (!form.hasClass("review-form")) {
+					form.parent('.modal__content').append('<p>Заявка успешно отправлена</p>');
+				} else {
+					form.parent('.modal__content').append('<p>Отзыв успешно отправлен</p>');
+				}
 
+			}
+		});
 		return false;
 	});
 
@@ -575,7 +583,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		$(".delivery-price").text(numberWithSpaces(delivery_price));
 	});
 
-	$("form").submit(function(e){
+	$("form.order-form").submit(function(e){
 		e.preventDefault();
 		var firstname = $('[name="firstname"]').val(),
 			telephone = $('[name="telephone"]').val(),
@@ -589,7 +597,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		if ($('[name="use-customer-name"]').prop("checked")) {
 			comment += 'Использовать данные покупателя\n';
 		} else {
-			comment += 'Получатель: \n' + 'Имя: ' + $('[name="recipient-name"]').val() + '\n' + 'Телефон: ' + $('[name="recipient-phone"]').val();
+			comment += 'Получатель: \n' + 'Имя: ' + $('[name="recipient-name"]').val() + '\n' + 'Телефон: ' + $('[name="recipient-phone"]').val() + '\n';
 		}
 		if ($(".order-tabs__link.active").data("count") == 'tab-1') {
 			comment += 'Способ доставки: Доставка\n';
@@ -641,11 +649,17 @@ document.addEventListener("DOMContentLoaded", function() {
 			$.ajax({
 				url: 'index.php?route=checkout/confirm',
 				type: 'post',
-				data: {firstname: firstname, telephone: telephone, email: email, comment: comment, payment_method: payment_method}
+				data: {firstname: firstname, telephone: telephone, email: email, comment: comment, payment_method: payment_method},
+				success: function() {
+					$.ajax({
+						url: 'index.php?route=checkout/cart/clear',
+					});
+				}
 			});
 		}, 4000);
 		return false;
-	})
+	});
+ 
 	// var cart = {
 	// 'add': function(product_id, quantity) {
 	//  $.ajax({

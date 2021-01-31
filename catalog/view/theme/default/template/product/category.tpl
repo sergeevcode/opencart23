@@ -176,20 +176,14 @@
                         <?php } ?>
 
                     </div>
-
+                    <?php if($pagination) {?>
                     <div class="pagination categories-pagination">
-                        <div class="pagination__wrap">
-                            <ul class="pagination-list">
-                                <li><a href="#" class="pagination-prev"><i></i></a></li>
-                                <li><a href="#" class="active">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">...</a></li>
-                                <li><a href="#">6</a></li>
-                                <li><a href="#" class="pagination-next"><i></i></a></li>
-                            </ul>
+                        <div class="pagination__wrap">                            
+                            <?php echo $pagination; ?>
                         </div>
                     </div>
                     <!-- /.pagination -->
+                    <?php } ?>
                 </div>
                 <!-- /.categories-list -->
 
