@@ -22,15 +22,15 @@
                             <div class="order-details__body">
                                 <div class="order-details__name input">
                                     <label class="order-label" for="user-name">Имя*</label>
-                                    <input class="order-input" type="text" name="user-name" id="user-name" required>
+                                    <input class="order-input" type="text" name="firstname" id="user-name" required>
                                 </div>
                                 <div class="order-details__phone input">
                                     <label class="order-label" for="user-phone">Мобильный телефон*</label>
-                                    <input class="order-input" type="tel" name="user-phone" id="user-phone" required>
+                                    <input class="order-input" type="tel" name="telephone" id="user-phone" required>
                                 </div>
                                 <div class="order-details__email input">
                                     <label class="order-label" for="user-email">E-mail*</label>
-                                    <input class="order-input" type="email" name="user-email" id="user-email" required>
+                                    <input class="order-input" type="email" name="email" id="user-email" required>
                                 </div>
                                 <div class="checkbox order-details__checkbox">
                                     <input type="checkbox" name="customer-name" id="customer-name">
@@ -84,9 +84,9 @@
 
                                         <div class="territory__select select">
                                             <select name="territory">
-                                                <option value="Оренбург">Оренбург</option>
-                                                <option value="Оренбург 2">Оренбург 2</option>
-                                                <option value="Оренбург 3">Оренбург 3</option>
+                                                <?php foreach ($deliveries as $delivery) { ?>
+                                                <option value="<?php echo $delivery['delivery_id']?>" data-price="<?php echo $delivery['price']?>"><?php echo $delivery['name']?></option> 
+                                                <?php } ?>
                                             </select>
                                         </div>
 
@@ -126,7 +126,7 @@
                                         <div class="date-input input date">
                                             <input type="text" class="form-control">
                                             <span class="input-group-addon">
-                                                <img src="images/icons/date-piccer.png" alt="">
+                                                <img src="/assets/images/icons/date-piccer.png" alt="">
                                             </span>
                                         </div>
 
@@ -181,58 +181,31 @@
                                 <div id="tab-2" class="order-tabs__content order-delivery-content">
                                     
                                     <div class="pickup__wrap">
-
+                                        <?php 
+                                        $i = 0;
+                                        foreach($locations as $location) {
+                                            $i++;
+                                        ?> 
                                         <div class="radio pickup__radio">
-                                            <input type="radio" name="pickup" id="pickup-1" checked>
-                                            <label for="pickup-1">
+                                            <input type="radio" name="shipping_method" value="Самовывоз: <?php echo $location['address']?>" id="pickup-<?php echo $i ?>">
+                                            <label for="pickup-<?php echo $i ?>">
                                                 <div class="pickup__content">
-                                                    <div class="pickup__addr">г. Оренбург, ул. Правды, 25</div>
+                                                    <div class="pickup__addr"><?php echo $location['address']?></div>
                                                     <div class="pickup__tel">
                                                         <span>Телефон:</span>
-                                                        <a href="tel:+73532902202">+7 (3532) 90-22-02</a>
+                                                        <a href="tel:<?php echo $location['telephone']?>"><?php echo $location['telephone_publish']?></a>
                                                     </div>
                                                     <div class="pickup__time">
                                                         <span>Время работы:</span>
                                                         <div class="pickup__block">
-                                                            <div class="pickup__w-time">
-                                                                <span class="work-day">Пн - Сб</span>
-                                                                <span class="work-time">07:00 - 20:00</span>
-                                                            </div>
-                                                            <div class="pickup__w-time">
-                                                                <span class="work-day">Вс</span>
-                                                                <span class="work-time">10:00 - 18:00</span>
-                                                            </div>
+                                                            <?php echo html_entity_decode(str_replace("<br>", "", $location['open'])); ?> 
+
                                                         </div>
                                                     </div>
                                                 </div>
                                             </label>
                                         </div>
-
-                                        <div class="radio pickup__radio">
-                                            <input type="radio" name="pickup" id="pickup-2">
-                                            <label for="pickup-2">
-                                                <div class="pickup__content">
-                                                    <div class="pickup__addr">г. Оренбург, п. Ростоши, ул. Газпромовская, 63</div>
-                                                    <div class="pickup__tel">
-                                                        <span>Телефон:</span>
-                                                        <a href="tel:+73532919119">+7 (3532) 91-91-19</a>
-                                                    </div>
-                                                    <div class="pickup__time">
-                                                        <span>Время работы:</span>
-                                                        <div class="pickup__block">
-                                                            <div class="pickup__w-time">
-                                                                <span class="work-day">Пн - Сб</span>
-                                                                <span class="work-time">08:00 - 20:00</span>
-                                                            </div>
-                                                            <div class="pickup__w-time">
-                                                                <span class="work-day">Вс</span>
-                                                                <span class="work-time">10:00 - 20:00</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </label>
-                                        </div>
+                                        <?php } ?>
 
                                     </div>
                                     <!-- /.pickup__wrap -->
@@ -248,28 +221,22 @@
                         <div class="services__title">Дополнительные услуги</div>
 
                         <div class="services__wrap">
-
+                            <?php
+                            $i = 0;
+                            foreach ($services as $service) {
+                                $i++;
+                            ?>
                             <div class="services-item">
                                 <div class="checkbox services__checkbox">
-                                    <input type="checkbox" name="services-name" id="services-name-1">
-                                    <label for="services-name-1">Название дополнительной услуги</label>
+                                    <input type="checkbox" name="services-name[]" data-price="<?php echo $service['price_number']?>" value="<?php echo $service['service_id']?>" id="services-name-<?php echo $i?>">
+                                    <label for="services-name-<?php echo $i?>"><?php echo $service['name']?></label>
                                 </div>
                                 <div class="services-item__price">
-                                    Бесплатно
+                                    <?php echo $service['price']?>
                                 </div>
                             </div>
                             <!-- /.services-item -->
-
-                            <div class="services-item">
-                                <div class="checkbox services__checkbox">
-                                    <input type="checkbox" name="services-name" id="services-name-2">
-                                    <label for="services-name-2">Длинное название дополнительной услуги</label>
-                                </div>
-                                <div class="services-item__price">
-                                    Бесплатно
-                                </div>
-                            </div>
-                            <!-- /.services-item -->
+                            <?php } ?>
                             
                         </div>
                         <!-- /.services__wrap -->
@@ -283,22 +250,22 @@
                                 Итоговая стоимость заказа
                             </div>
                             <div class="total-cost__sum">
-                                7 500 руб.
+                                <span class="total-price"><?php echo $totals?></span> руб.
                             </div>
                         </div>
 
                         <div class="total-cost__wrap">
                             <div class="total-cost__item">
                                 <div class="total-cost__name">Цветы и подарки</div>
-                                <div class="total-cost__price">7 200 рублей</div>
+                                <div class="total-cost__price"><span class="main-price"><?php echo $totals?></span> рублей</div>
                             </div>
-                            <div class="total-cost__item">
+                            <div class="total-cost__item" data-delivery>
                                 <div class="total-cost__name">Доставка</div>
-                                <div class="total-cost__price">200 рублей</div>
+                                <div class="total-cost__price"><span class="delivery-price"></span> рублей</div>
                             </div>
                             <div class="total-cost__item">
                                 <div class="total-cost__name">Дополнительные услуги</div>
-                                <div class="total-cost__price">100 рублей</div>
+                                <div class="total-cost__price"><span class="service-price"></span> рублей</div>
                             </div>
                         </div>
                         <!-- /.total-cost__wrap -->
@@ -343,11 +310,11 @@
                                     
                                     <div class="payment-receipt">
                                         <div class="radio payment__radio">
-                                            <input type="radio" name="payment-method" id="payment-cash" checked>
+                                            <input type="radio" name="payment_method" value="Наличными" id="payment-cash" checked>
                                             <label for="payment-cash">Наличными</label>
                                         </div>
                                         <div class="radio payment__radio">
-                                            <input type="radio" name="payment-method" id="payment-card">
+                                            <input type="radio" name="payment_method" value="Банковской картой" id="payment-card">
                                             <label for="payment-card">Банковской картой</label>
                                         </div>
                                     </div>
@@ -368,7 +335,7 @@
                         </div>
                         <!-- /.order-tabs -->
                     </div>
-
+                    <input type="hidden" name="comment" value="">
                 </form>
 
             </div>

@@ -71,6 +71,14 @@ class ControllerExtensionShippingCitylink extends Controller {
 			$data['citylink_rate'] = '10:11.6,15:14.1,20:16.60,25:19.1,30:21.6,35:24.1,40:26.6,45:29.1,50:31.6,55:34.1,60:36.6,65:39.1,70:41.6,75:44.1,80:46.6,100:56.6,125:69.1,150:81.6,200:106.6';
 		}
 
+		if (isset($this->request->post['citylink_territories'])) {
+			$data['citylink_territories'] = $this->request->post['citylink_territories'];
+		} elseif ($this->config->get('citylink_rate')) {
+			$data['citylink_territories'] = $this->config->get('citylink_territories');
+		} else {
+			$data['citylink_territories'] = '';
+		}
+
 		if (isset($this->request->post['citylink_tax_class_id'])) {
 			$data['citylink_tax_class_id'] = $this->request->post['citylink_tax_class_id'];
 		} else {
