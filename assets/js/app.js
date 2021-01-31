@@ -411,6 +411,13 @@ document.addEventListener("DOMContentLoaded", function() {
 		$(".modal").removeClass("modal-open");
 	});
 	$(".card__btn").click(function(){ 
+		$(".modal-card").find("a").attr("href", $(this).data("href"));
+		$(".modal-card").find(".card__title a").text($(this).data("name"));
+		$(".modal-card").find(".card__price").text($(this).data("price"));
+		$(".modal-card").find(".card__pic").css({
+			"background-image" : "url('"+$(this).data("image")+"')"
+		});
+
 		$.ajax({
 			url: 'index.php?route=checkout/cart/add',
 			type: 'post',

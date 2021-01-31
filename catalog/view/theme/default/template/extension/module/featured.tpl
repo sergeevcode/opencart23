@@ -1,3 +1,4 @@
+
     <section class="<?php echo $class?>">
         <div class="container section-container">
             <h2 class="s-title"><?php echo $name; ?></h2>
@@ -25,11 +26,10 @@
                                     <form class="form-slide">
                                     <div class="card__block">
                                     	<?php 
-		            					$i = 0;
 		            					foreach ($product['options'] as $option) { 		       						
 		            					?>
 		            						<?php foreach ($option['product_option_value'] as $option_value) { 
-		            							$i++;
+		            							$i = rand(0, 100);
 		            						?>
 		                                        <div class="card__item">
 		                                           <input type="radio" id="option_<?php echo $option['product_option_id'].$i; ?>" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" <?php echo ($i==1) ? 'checked' : ''?>>
@@ -41,7 +41,14 @@
                                     <div class="card__basket">
                                         <input type="hidden" name="quantity" value="1">
                                         <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>" />
-                                        <button class="btn btn--dark card__btn" data-link-id="basket-modal">В корзину</button>
+                                        <button class="btn btn--dark card__btn" 
+                                        data-price="<?=($product['special']) ? $product['special'] : $product['price']; ?>" 
+                                        data-link-id="basket-modal" 
+                                        data-image="<?php echo $product['thumb']; ?>" 
+                                        data-name="<?php echo $product['name']; ?>" 
+                                        data-href="<?php echo $product['href']; ?>" 
+
+                                            data-link-id="basket-modal">В корзину</button>
                                         
                                         <button class="btn btn--fill card__btn">Купить в 1 клик</button>
                                     </div>
