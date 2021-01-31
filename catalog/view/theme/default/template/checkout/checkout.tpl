@@ -243,8 +243,7 @@
                         <!-- /.order-tabs -->
 
                     </div>
-                    <!-- /.order-receive -->
-
+                    <!-- /.order-receive --> 
                     <div class="order-additional-services services">
                         <div class="services__title">Дополнительные услуги</div>
 
