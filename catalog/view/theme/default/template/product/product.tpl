@@ -4,9 +4,17 @@
         <div class="container">
             <div class="breadcrumbs">
                 <ul class="breadcrumbs__list">
-                    <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-				    <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
-				    <?php } ?>
+                    <?php
+                    $i = 0;
+                    foreach ($breadcrumbs as $breadcrumb) { 
+                    $i++;
+                    if ($i == count($breadcrumbs)):
+                    ?>
+                    <li class="active"><?php echo $breadcrumb['text']; ?></li>
+                    <? else: ?>
+                    <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+                    <? endif;?>
+                    <?php } ?>
                 </ul>
             </div>
             <!-- /.breadcrumbs -->
@@ -49,7 +57,7 @@
               			<?php if ($price) { ?>
 	                        <div class="content-price">
 	                        	<?php if (!$special) { ?>
-		                            <span class="content-price__new"><?php echo $price; ?>.</span>
+		                            <span class="content-price__new"><?php echo $price; ?></span>
 	                        		<?php } else { ?>
 		                            <span class="content-price__new"><?php echo $special; ?></span>
 		                            <span class="content-price__old"><?php echo $price; ?></span>
@@ -94,7 +102,7 @@
         				<?php } ?>
                         <div class="content-basket">
                         	<input type="hidden" name="product_id" value="<?php echo $product_id; ?>" />
-                            <button id="button-cart" data-link-id="basket-modal" data-image="<?php echo $thumb; ?>" data-name="<?php echo $heading_title; ?>" data-href="" class="btn btn--dark btn-basket content-basket__btn">Добавить В корзину</button>
+                            <button id="button-cart" data-price="<?=($special) ? $special : $price ?>" data-link-id="basket-modal" data-image="<?php echo $thumb; ?>" data-name="<?php echo $heading_title; ?>" data-href="<?=$url?>" class="btn btn--dark btn-basket content-basket__btn">Добавить В корзину</button>
                             <button class="btn btn--fill content-basket__btn--buy">Купить в 1 клик</button>
                         </div>
                         <!-- /.content-basket -->
@@ -148,7 +156,7 @@
 		                            <div class="content-descr__wrap">
 		                                <div class="content-descr__tags-color-list">
 		                                	<?php foreach ($attribute_group['attribute'] as $attribute) { ?>
-		                                    	<a href="#"><span style="background-color: <?php echo $attribute['text']; ?>;"></span><?php echo $attribute['name']; ?></a>
+		                                    	<a><span style="background-color: <?php echo $attribute['text']; ?>;"></span><?php echo $attribute['name']; ?></a>
                   							<?php } ?> 
 		                                </div>
 		                            </div>

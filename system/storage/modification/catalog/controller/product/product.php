@@ -66,6 +66,8 @@ class ControllerProductProduct extends Controller {
 				);
 			}
 		}
+		$url = ((!empty($_SERVER['HTTPS'])) ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+		$data['url'] = $url;
 
 		$this->load->model('catalog/manufacturer');
 

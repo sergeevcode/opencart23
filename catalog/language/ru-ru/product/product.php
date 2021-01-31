@@ -31,6 +31,7 @@ $_['text_semi_month']                         = 'полмесяца';
 $_['text_month']                              = 'месяц';
 $_['text_year']                               = 'год';
 
+$_['text_home']				= 'Главная';
 // Entry
 $_['entry_qty']                               = 'Количество';
 $_['entry_name']                              = 'Ваше имя:';

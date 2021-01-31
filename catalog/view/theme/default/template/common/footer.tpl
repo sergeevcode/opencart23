@@ -122,11 +122,11 @@
                         <div class="card-new v-new"><span>new</span></div>
                     </div>
                     <div class="card__wrap">
-                        <h3 class="card__title"><a href="#">Авторский букет “Гармония”</a></h3>
-                        <div class="card__price">3 500 руб.</div>
+                        <h3 class="card__title"><a href="#"></a></h3>
+                        <div class="card__price"></div>
                     </div>
                     <div class="modal-card-bottom">
-                        <button class="btn btn--fill modal-card__btn">Продолжить</button>
+                        <button class="btn btn--fill modal-card__btn" data-close>Продолжить</button>
                         <button class="btn btn--dark modal-card__btn" onclick="location.replace('/cart')">Перейти в корзину</button>
                     </div>
                 </div>

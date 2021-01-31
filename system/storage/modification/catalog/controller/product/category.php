@@ -45,7 +45,7 @@ class ControllerProductCategory extends Controller {
 			'text' => $this->language->get('text_home'),
 			'href' => $this->url->link('common/home')
 		);
-
+		
 		if (isset($this->request->get['path'])) {
 			$url = '';
 

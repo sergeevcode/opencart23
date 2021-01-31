@@ -4,8 +4,16 @@
             <!-- <div class="categories-content-bg"></div> -->
             <div class="breadcrumbs">
                 <ul class="breadcrumbs__list">
-                    <?php foreach ($breadcrumbs as $breadcrumb) { ?>
-				    <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+                    <?php
+                    $i = 0;
+                    foreach ($breadcrumbs as $breadcrumb) { 
+                    $i++;
+                    if ($i == count($breadcrumbs)):
+                    ?>
+				    <li class="active"><?php echo $breadcrumb['text']; ?></li>
+                    <? else: ?>
+                    <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+                    <? endif;?>
 				    <?php } ?>
                 </ul>
             </div>
