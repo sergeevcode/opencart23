@@ -40,7 +40,7 @@ class ControllerCheckoutCheckout extends Controller {
 			$data['deliveries'][] = array(
 				'delivery_id'  => $result['product_id'],				
 				'name'        => $result['name'], 
-				'price'       => $result['price']
+				'price'       => number_format($result['price'], 0)
 			);
 		} 
 
@@ -63,7 +63,7 @@ class ControllerCheckoutCheckout extends Controller {
 				'service_id'  => $result['product_id'],				
 				'name'        => $result['name'], 
 				'price'       => $price,
-				'price_number' => $result['price']
+				'price_number' => number_format($result['price'], 0)
 			);
 		} 
 				$total_data = array(
@@ -101,7 +101,7 @@ class ControllerCheckoutCheckout extends Controller {
 
 		array_multisort($sort_order, SORT_ASC, $totals);
 		$total_summ = $totals[count($totals) - 1]; 
-		$data['totals'] = number_format($total_summ['value'], 0, '', ' ');
+		$data['totals'] = $total_summ['value'];
 
 		$this->load->language('checkout/checkout');
 

@@ -512,6 +512,140 @@ document.addEventListener("DOMContentLoaded", function() {
 
 		return false;
 	});
+
+	$(".order-delivery-link").click(function(){
+		if ($(this).data("count") == 'tab-2') {
+			$("[data-delivery]").hide();
+			$(".total-price").text(parseInt($(".total-price").text().replace(/\s+/g, '')) - parseInt($(".delivery-price").text().replace(/\s+/g, '')));
+			$(".delivery-price").text('0');
+			$('[name="territory-street"]').prop("required", false);
+			$('[name="territory-house"]').prop("required", false);
+
+		} else {			
+			var delivery_price = parseInt($(".delivery-price").text()),
+				current_price = parseInt($('[name="territory"] option:selected').data("price")),
+				total_price = parseInt($(".total-price").text().replace(/\s+/g, ''));
+
+			total_price = total_price - delivery_price + current_price;
+			delivery_price = current_price;
+			$(".total-price").text(numberWithSpaces(total_price));
+			$(".delivery-price").text(numberWithSpaces(delivery_price));
+
+			$("[data-delivery]").show();
+			$('[name="territory-street"]').prop("required", true);
+			$('[name="territory-house"]').prop("required", true);
+		}
+	});
+
+	$('[name="services-name"]').change(function(){
+		if ($(this).prop("checked")){ 
+			$(".service-price").text($(this).data("price") + parseInt($(".service-price").text()));
+			$(".total-price").text(numberWithSpaces(parseInt($(".total-price").text().replace(/\s+/g, '')) + $(this).data("price")));
+		} else { 
+			if ($(this).data("price") - parseInt($(".service-price").text()) > 0) {
+				$(".service-price").text($(this).data("price") - parseInt($(".service-price").text()));
+			} else {
+				$(".service-price").text('0');
+			}
+			$(".total-price").text(numberWithSpaces(parseInt($(".total-price").text().replace(/\s+/g, '')) - $(this).data("price")));
+		}
+	});
+
+	$('[name="use-customer-name"]').change(function(){
+		if ($(this).prop("checked")) {
+			$(this).closest(".order-details__body").find(".order-details__name").hide();
+			$(this).closest(".order-details__body").find(".order-details__phone").hide();
+			$(this).closest(".order-details__body").find('[name="recipient-name"]').prop("required", false);
+			$(this).closest(".order-details__body").find('[name="recipient-phone"]').prop("required", false);
+		} else {			
+			$(this).closest(".order-details__body").find(".order-details__name").show();
+			$(this).closest(".order-details__body").find(".order-details__phone").show();
+			$(this).closest(".order-details__body").find('[name="recipient-name"]').prop("required", true);
+			$(this).closest(".order-details__body").find('[name="recipient-phone"]').prop("required", true);
+		}
+	});
+	$('[name="territory"]').change(function(){
+		var delivery_price = parseInt($(".delivery-price").text()),
+			current_price = parseInt($('[name="territory"] option:selected').data("price")),
+			total_price = parseInt($(".total-price").text().replace(/\s+/g, ''));
+
+		total_price = total_price - delivery_price + current_price;
+		delivery_price = current_price;
+		$(".total-price").text(numberWithSpaces(total_price));
+		$(".delivery-price").text(numberWithSpaces(delivery_price));
+	});
+
+	$("form").submit(function(e){
+		e.preventDefault();
+		var firstname = $('[name="firstname"]').val(),
+			telephone = $('[name="telephone"]').val(),
+			email = $('[name="email"]').val(), comment = '';
+		if ($('[name="customer-name"]').prop("checked")) {
+			comment += 'Не сообщать получателю имя покупателя\n';
+		}
+		if ($('[name="delivery-sms"]').prop("checked")) {
+			comment += 'Получить уведомление о доставке по СМС\n';
+		}
+		if ($('[name="use-customer-name"]').prop("checked")) {
+			comment += 'Использовать данные покупателя\n';
+		} else {
+			comment += 'Получатель: \n' + 'Имя: ' + $('[name="recipient-name"]').val() + '\n' + 'Телефон: ' + $('[name="recipient-phone"]').val();
+		}
+		if ($(".order-tabs__link.active").data("count") == 'tab-1') {
+			comment += 'Способ доставки: Доставка\n';
+			comment += $('[name="territory"] option:selected').text()+'\n';
+			comment += 'Улица: '+$('[name="territory-street"]').val()+'\n';
+			comment += 'Дом: '+$('[name="territory-house"]').val()+'\n';
+			if ($('[name="territory-floor"]').val() != '') {
+				comment += 'Этаж: '+$('[name="territory-floor"]').val()+'\n';
+			}
+
+			if ($('[name="territory-flat"]').val() != '') {
+				comment += 'Квартира: '+$('[name="territory-flat"]').val()+'\n';
+			}  	
+
+			if ($('[name="territory-entrance"]').val() != '') {
+				comment += 'Подъезд: '+$('[name="territory-entrance"]').val()+'\n';
+			} 
+ 
+			$.ajax({
+				url: 'index.php?route=checkout/cart/add',
+				type: 'post',
+				data: {quantity: '1', product_id: $('[name="territory"]').val()}
+			});
+
+		} else {
+			comment += 'Способ доставки: ' + $('[name="shipping_method"]').val() + '\n';
+		}
+		$('[name="services-name"]').each(function() {
+			if ($(this).prop("checked")) {
+				$.ajax({
+					url: 'index.php?route=checkout/cart/add',
+					type: 'post',
+					data: {quantity: '1', product_id: $(this).val()}
+				});
+			}
+		});
+
+		if ($('[name="delivery-time"]').val() == '1') {
+			comment += 'Временной промежуток ' + $('[name="period"] option:selected').val() + '\n';
+		} else {			
+			comment += 'Точное время ' + '\n';
+		}
+
+		if ($('[name="message"]').val() != '') {
+			comment += 'Комментарий \n' + $('[name="message"]').val();
+		}
+		var payment_method = $('[name="payment_method"]').val();
+		setTimeout(function() {			
+			$.ajax({
+				url: 'index.php?route=checkout/confirm',
+				type: 'post',
+				data: {firstname: firstname, telephone: telephone, email: email, comment: comment, payment_method: payment_method}
+			});
+		}, 4000);
+		return false;
+	})
 	// var cart = {
 	// 'add': function(product_id, quantity) {
 	//  $.ajax({

@@ -84,7 +84,14 @@
 
                                         <div class="territory__select select">
                                             <select name="territory">
-                                                <?php foreach ($deliveries as $delivery) { ?>
+                                                <?php 
+                                                $i = 0;
+                                                foreach ($deliveries as $delivery) { 
+                                                    if ($i == 0) {
+                                                        $delivery_price = $delivery['price'];
+                                                        $i++;
+                                                    }
+                                                ?>
                                                 <option value="<?php echo $delivery['delivery_id']?>" data-price="<?php echo $delivery['price']?>"><?php echo $delivery['name']?></option> 
                                                 <?php } ?>
                                             </select>
@@ -133,7 +140,7 @@
                                         <div class="order-delivery-time">
                                             <div class="order-delivery-time__left">
                                                 <div class="radio order-delivery-time__radio">
-                                                    <input type="radio" name="delivery-time" id="delivery-period-time">
+                                                    <input type="radio" name="delivery-time" value="1" id="delivery-period-time">
                                                     <label for="delivery-period-time">Временной промежуток доставки</label>
                                                 </div>
                                                 <div class="order-delivery-time__select select">
@@ -147,7 +154,7 @@
 
                                             <div class="order-delivery-time__right">
                                                 <div class="radio order-delivery-time__radio">
-                                                    <input type="radio" name="delivery-time" id="delivery-exact-time">
+                                                    <input type="radio" name="delivery-time" value="2" id="delivery-exact-time">
                                                     <label for="delivery-exact-time">Точное время доставки (+ 100 рублей)</label>
                                                 </div>
 
@@ -228,7 +235,7 @@
                             ?>
                             <div class="services-item">
                                 <div class="checkbox services__checkbox">
-                                    <input type="checkbox" name="services-name[]" data-price="<?php echo $service['price_number']?>" value="<?php echo $service['service_id']?>" id="services-name-<?php echo $i?>">
+                                    <input type="checkbox" name="services-name" data-price="<?php echo $service['price_number']?>" value="<?php echo $service['service_id']?>" id="services-name-<?php echo $i?>">
                                     <label for="services-name-<?php echo $i?>"><?php echo $service['name']?></label>
                                 </div>
                                 <div class="services-item__price">
@@ -250,7 +257,7 @@
                                 Итоговая стоимость заказа
                             </div>
                             <div class="total-cost__sum">
-                                <span class="total-price"><?php echo $totals?></span> руб.
+                                <span class="total-price"><?php echo number_format((int)$totals + (int)$delivery_price, 0, '', ' ')?></span> руб.
                             </div>
                         </div>
 
@@ -261,11 +268,11 @@
                             </div>
                             <div class="total-cost__item" data-delivery>
                                 <div class="total-cost__name">Доставка</div>
-                                <div class="total-cost__price"><span class="delivery-price"></span> рублей</div>
+                                <div class="total-cost__price"><span class="delivery-price"><?php echo $delivery_price?></span> рублей</div>
                             </div>
                             <div class="total-cost__item">
                                 <div class="total-cost__name">Дополнительные услуги</div>
-                                <div class="total-cost__price"><span class="service-price"></span> рублей</div>
+                                <div class="total-cost__price"><span class="service-price">0</span> рублей</div>
                             </div>
                         </div>
                         <!-- /.total-cost__wrap -->
@@ -334,8 +341,7 @@
                             </div>
                         </div>
                         <!-- /.order-tabs -->
-                    </div>
-                    <input type="hidden" name="comment" value="">
+                    </div> 
                 </form>
 
             </div>
