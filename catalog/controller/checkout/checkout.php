@@ -27,14 +27,14 @@ class ControllerCheckoutCheckout extends Controller {
 
 		$this->document->setTitle($this->language->get('heading_title'));
 
-		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment.js');
-		$this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
-		$this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
+		// $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment.js');
+		// $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js');
+		// $this->document->addStyle('catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css');
 
 		// Required by klarna
-		if ($this->config->get('klarna_account') || $this->config->get('klarna_invoice')) {
-			$this->document->addScript('http://cdn.klarna.com/public/kitt/toc/v1.0/js/klarna.terms.min.js');
-		}
+		// if ($this->config->get('klarna_account') || $this->config->get('klarna_invoice')) {
+		// 	$this->document->addScript('http://cdn.klarna.com/public/kitt/toc/v1.0/js/klarna.terms.min.js');
+		// }
 
 		$data['breadcrumbs'] = array();
 
