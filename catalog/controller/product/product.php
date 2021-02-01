@@ -20,7 +20,9 @@ class ControllerProductProduct extends Controller {
 			$parts = explode('_', (string)$this->request->get['path']);
 
 			$category_id = (int)array_pop($parts);
+			$real_url = $_SERVER['REQUEST_URI'];  
 
+			$data['category_link'] = rtrim( dirname( $real_url ), "/" );
 			foreach ($parts as $path_id) {
 				if (!$path) {
 					$path = $path_id;
@@ -220,6 +222,7 @@ class ControllerProductProduct extends Controller {
 			$this->document->setDescription($product_info['meta_description']);
 			$this->document->setKeywords($product_info['meta_keyword']);
 			$this->document->addLink($this->url->link('product/product', 'product_id=' . $this->request->get['product_id']), 'canonical');
+			$this->document->setOgurl($this->url->link('product/product', 'product_id=' . $this->request->get['product_id']));
 			// $this->document->addScript('catalog/view/javascript/jquery/magnific/jquery.magnific-popup.min.js');
 			// $this->document->addStyle('catalog/view/javascript/jquery/magnific/magnific-popup.css');
 			// $this->document->addScript('catalog/view/javascript/jquery/datetimepicker/moment.js');
@@ -272,19 +275,20 @@ class ControllerProductProduct extends Controller {
 			$data['reward'] = $product_info['reward'];
 			$data['points'] = $product_info['points'];
 			$data['description'] = html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8');
-
-			if ($product_info['quantity'] <= 0) {
-				$data['stock'] = $product_info['stock_status'];
-			} elseif ($this->config->get('config_stock_display')) {
-				$data['stock'] = $product_info['quantity'];
-			} else {
-				$data['stock'] = $this->language->get('text_instock');
-			}
+			$data['stock'] = $product_info['quantity'];
+			// if ($product_info['quantity'] <= 0) {
+			// 	$data['stock'] = $product_info['stock_status'];
+			// } elseif ($this->config->get('config_stock_display')) {
+			// 	$data['stock'] = $product_info['quantity'];
+			// } else {
+			// 	$data['stock'] = $this->language->get('text_instock');
+			// }
 
 			$this->load->model('tool/image');
 
 			if ($product_info['image']) {
 				$data['popup'] = '/image/'.$product_info['image'];
+				$this->document->setOgimage($this->model_tool_image->resize($product_info['image'], 500, 300));
 			} else {
 				$data['popup'] = '';
 			}
@@ -301,19 +305,18 @@ class ControllerProductProduct extends Controller {
 
 			foreach ($results as $result) {
 				$data['images'][] = array(
-					'popup' => '/image/'.$product_info['image'],
+					'popup' => '/image/'.$result['image'],
 					'thumb' => $this->model_tool_image->resize($result['image'], $this->config->get($this->config->get('config_theme') . '_image_additional_width'), $this->config->get($this->config->get('config_theme') . '_image_additional_height'))
 				);
-			}
-
+			} 
 			if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
-				$data['price'] = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+				$data['price'] = $product_info['price'];
 			} else {
 				$data['price'] = false;
 			}
 
 			if ((float)$product_info['special']) {
-				$data['special'] = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+				$data['special'] = $product_info['special'];
 				$data['percents'] = $this->sale_percent($data['price'], $product_info['special']);
 			} else {
 				$data['special'] = false;
@@ -344,8 +347,8 @@ class ControllerProductProduct extends Controller {
 
 				foreach ($option['product_option_value'] as $option_value) {
 					if (!$option_value['subtract'] || ($option_value['quantity'] > 0)) {
-						if ((($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) && (float)$option_value['price']) {
-							$price = $this->currency->format($this->tax->calculate($option_value['price'], $product_info['tax_class_id'], $this->config->get('config_tax') ? 'P' : false), $this->session->data['currency']);
+						if ((float)$option_value['price']) {
+							$price = number_format($option_value['price'], 0, '', '');
 						} else {
 							$price = false;
 						}
@@ -411,11 +414,15 @@ class ControllerProductProduct extends Controller {
 			$results = $this->model_catalog_product->getProductRelated($this->request->get['product_id']);
 
 			foreach ($results as $result) {
+
 				if ($result['image']) {
 					$image = '/image/'.$result['image'];
 				} else {
 					$image = '/image/placeholder.png';
 				}
+				
+				$product_info = $this->model_catalog_product->getProduct($result['product_id']);
+				$result['stock'] = $product_info['quantity'];
 
 				if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 					$price = $this->currency->format($this->tax->calculate($result['price'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
@@ -432,6 +439,11 @@ class ControllerProductProduct extends Controller {
 					$percents = false;
 				}
 
+				if ($result['badge'] != '') {
+					$badge = $result['badge'];
+				} else {
+					$badge = false;
+				}
 
 				if ($this->config->get('config_tax')) {
 					$tax = $this->currency->format((float)$result['special'] ? $result['special'] : $result['price'], $this->session->data['currency']);
@@ -491,7 +503,10 @@ class ControllerProductProduct extends Controller {
 					'rating'      => $rating,
 					'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id']),
 					'percents' => $percents,
-					'options' => array($options)
+					'options' => array($options),
+					'badge' => $badge,
+
+					'stock' => $result['stock']
 				);
 			}
 
@@ -512,7 +527,7 @@ class ControllerProductProduct extends Controller {
 				'filter_category_id' => '71'
 			);
 	 		 
-
+			$data['prizes'] = array();
 			$results = $this->model_catalog_product->getProducts($filter_data);
 			$i = 0;
 			shuffle($results);
@@ -523,6 +538,8 @@ class ControllerProductProduct extends Controller {
 					$image = '/image/placeholder.png';
 				}
 
+				$product_info = $this->model_catalog_product->getProduct($result['product_id']);
+				$result['stock'] = $product_info['quantity'];
 				if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 					$price = $this->currency->format($this->tax->calculate($result['price'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
 				} else {
@@ -538,6 +555,11 @@ class ControllerProductProduct extends Controller {
 					$percents = false;
 				}
 
+				if ($result['badge'] != '') {
+					$badge = $result['badge'];
+				} else {
+					$badge = false;
+				}
 
 				if ($this->config->get('config_tax')) {
 					$tax = $this->currency->format((float)$result['special'] ? $result['special'] : $result['price'], $this->session->data['currency']);
@@ -597,7 +619,9 @@ class ControllerProductProduct extends Controller {
 					'rating'      => $rating,
 					'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id']),
 					'percents' => $percents,
-					'options' => array($options)
+					'options' => array($options),
+					'badge' => $badge,
+					'stock' => $result['stock']
 				);
 				$i++;
 				if ($i > 9) {
@@ -630,6 +654,8 @@ class ControllerProductProduct extends Controller {
 					$image = '/image/placeholder.png';
 				}
 
+				$product_info = $this->model_catalog_product->getProduct($result['product_id']);
+				$result['stock'] = $product_info['quantity'];
 				if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
 					$price = $this->currency->format($this->tax->calculate($result['price'], $result['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
 				} else {
@@ -645,6 +671,11 @@ class ControllerProductProduct extends Controller {
 					$percents = false;
 				}
 
+				if ($result['badge'] != '') {
+					$badge = $result['badge'];
+				} else {
+					$badge = false;
+				}
 
 				if ($this->config->get('config_tax')) {
 					$tax = $this->currency->format((float)$result['special'] ? $result['special'] : $result['price'], $this->session->data['currency']);
@@ -704,7 +735,9 @@ class ControllerProductProduct extends Controller {
 					'rating'      => $rating,
 					'href'        => $this->url->link('product/product', 'product_id=' . $result['product_id']),
 					'percents' => $percents,
-					'options' => array($options)
+					'options' => array($options),
+					'badge' => $badge,
+					'stock' => $result['stock']
 				);
 				$i++;
 				if ($i > 9) {

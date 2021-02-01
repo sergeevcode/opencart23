@@ -391,7 +391,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	$('#button-cart').on('click', function() {
 		$(".modal-card").find("a").attr("href", $(this).data("href"));
 		$(".modal-card").find(".card__title a").text($(this).data("name"));
-		$(".modal-card").find(".card__price").text($(this).data("price"));
+		$(".modal-card").find(".card__price").text($("span.current_price").text() + ' руб.');
 		$(".modal-card").find(".card__pic").css({
 			"background-image" : "url('"+$(this).data("image")+"')"
 		});
@@ -439,6 +439,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	$(".basket-delete").on('click', function(){
 		var product = $(this).data("product"); 
+		$('.basket-item[data-product="'+product+'"]').find(".waiting").show();
 		$.ajax({
 			url: 'index.php?route=checkout/cart/remove',
 			type: 'post',
@@ -572,6 +573,11 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 	});
 
+	$('[type="radio"][data-price]').click(function(){
+		var plusprice = $(this).data("price");
+		$("span.current_price").text(numberWithSpaces(parseInt($("span.current_price").data("price")) + plusprice));
+	});
+
 	$('[name="services-name"]').change(function(){
 		if ($(this).prop("checked")){ 
 			$(".service-price").text($(this).data("price") + parseInt($(".service-price").text()));
@@ -636,6 +642,8 @@ document.addEventListener("DOMContentLoaded", function() {
  	});
 
 	$("form.order-form").submit(function(e){
+		$(this).find(".waiting").show();
+		$(this).find(".order-checkouting").show();
 		e.preventDefault();
 		var firstname = $('[name="firstname"]').val(),
 			telephone = $('[name="telephone"]').val(),
@@ -711,6 +719,9 @@ document.addEventListener("DOMContentLoaded", function() {
 				success: function() {
 					$.ajax({
 						url: 'index.php?route=checkout/cart/clear',
+						success: function() {
+							location.replace('/zakaz-oformlen');
+						}
 					});
 				}
 			});
@@ -768,7 +779,11 @@ document.addEventListener("DOMContentLoaded", function() {
 	 		}
 	 	}
  	});
-
+ 	$(".photo-slider-nav__item").click(function(){
+ 		var photo = $(this).find("img").attr("src");
+ 		(".photo-slider__item").find("a").attr("href", photo);
+ 		(".photo-slider__item").find("img").attr("src", photo);
+ 	});
 	// var cart = {
 	// 'add': function(product_id, quantity) {
 	//  $.ajax({

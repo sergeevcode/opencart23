@@ -9,6 +9,25 @@
                 <div class="basket__list">
                 	<?php foreach ($products as $product) { ?>
                     <div class="basket-item" data-product="<?php echo $product['cart_id']; ?>">
+                        <div class="waiting" style="display: none;">
+                            <div class="windows8">
+                                <div class="wBall" id="wBall_1">
+                                    <div class="wInnerBall"></div>
+                                </div>
+                                <div class="wBall" id="wBall_2">
+                                    <div class="wInnerBall"></div>
+                                </div>
+                                <div class="wBall" id="wBall_3">
+                                    <div class="wInnerBall"></div>
+                                </div>
+                                <div class="wBall" id="wBall_4">
+                                    <div class="wInnerBall"></div>
+                                </div>
+                                <div class="wBall" id="wBall_5">
+                                    <div class="wInnerBall"></div>
+                                </div>
+                            </div>
+                        </div>
                     	<?php if ($product['special']) { ?>
 	                        <div class="h-sale basket-sale"><?php echo $product['percents']?>%</div>
 	                    <?php } ?>

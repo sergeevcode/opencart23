@@ -38,14 +38,14 @@
                         <!-- /.photo-slider -->
 
 					    <?php if ($images) { ?>
-						    <?php foreach ($images as $image) { ?>
 		                        <div class="photo-slider-nav">
+                            <?php foreach ($images as $image) { ?>
 		                            <div class="photo-slider-nav__item">
 		                                <img src="<?php echo $image['popup']; ?>"  title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
 		                            </div> 
+                            <?php } ?>
 		                        </div>
 		                        <!-- /.photo-slider-nav -->
-	                    	<?php } ?>
                     	<?php } ?>
                     </div>
                     <!-- /.content-left -->
@@ -57,10 +57,10 @@
               			<?php if ($price) { ?>
 	                        <div class="content-price">
 	                        	<?php if (!$special) { ?>
-		                            <span class="content-price__new"><?php echo $price; ?></span>
+		                            <span class="content-price__new"><span class="current_price" data-price="<?php echo number_format($price,0,'',''); ?>"><?php echo number_format($price,0,'',' '); ?></span> руб.</span>
 	                        		<?php } else { ?>
-		                            <span class="content-price__new"><?php echo $special; ?></span>
-		                            <span class="content-price__old"><?php echo $price; ?></span>
+		                            <span class="content-price__new"><span class="current_price" data-price="<?php echo number_format($special,0,'',''); ?>"><?php echo number_format($special,0,'',' '); ?></span> руб.</span>
+		                            <span class="content-price__old"><?php echo $price; ?> руб.</span>
 		                            <div class="h-sale content-sale"><?php echo $percents; ?>%</div>
 	              				<?php } ?>
 	                        </div>
@@ -77,7 +77,7 @@
                         </div>
                         <!-- /.content-amount -->
 
-            			<?php if ($options) { ?>
+            			<?php if ($options && $stock > 0) { ?>
                         <div class="content-size">
                             <div class="content-size__title">Размер букета:</div>
                             <div class="content-size__wrap">
@@ -91,7 +91,7 @@
             							$i++;
             						?>
 		                                <div class="content-size__item">
-		                                    <input type="radio" id="option_<?php echo $option['product_option_id'].$i; ?>" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" <?php echo ($i==1) ? 'checked' : ''?>>
+		                                    <input type="radio" data-price="<?php echo $option_value['price']?>" id="option_<?php echo $option['product_option_id'].$i; ?>" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" <?php echo ($i==1) ? 'checked' : ''?>>
 		                                    <label for="option_<?php echo $option['product_option_id'].$i; ?>"><?php echo html_entity_decode($option_value['name']); ?></label>
 		                                </div> 
 	                				<?php } ?>
@@ -100,27 +100,31 @@
                         </div>
                         <!-- /.content-size -->
         				<?php } ?>
+                        <?php if ($stock > 0) {?>
                         <div class="content-basket">
                         	<input type="hidden" name="product_id" value="<?php echo $product_id; ?>" />
                             <button id="button-cart" data-price="<?=($special) ? $special : $price ?>" data-link-id="basket-modal" data-image="<?php echo $thumb; ?>" data-name="<?php echo $heading_title; ?>" data-href="<?=$url?>" class="btn btn--dark btn-basket content-basket__btn">Добавить В корзину</button>
                             <button class="btn btn--fill content-basket__btn--buy" data-name="<?php echo $heading_title; ?>" data-href="<?=$url?>"  data-link-id="buyoneclick-modal">Купить в 1 клик</button>
                         </div>
                         <!-- /.content-basket -->
+                        <?php } else { ?>
+                        <div class="content-basket">Нет в наличии</div>
+                        <?php } ?>
                         <div class="content-share">
                             <div class="content-share__item">
-                                <a href="#" class="share-vk"></a>
+                                <a href="https://vk.com/share.php?url=<?=$url?>" target="_blank" class="share-vk"></a>
                             </div>
                             <div class="content-share__item">
-                                <a href="#" class="share-fb"></a>
+                                <a href="https://www.facebook.com/sharer.php?src=sp&u=<?=$url?>" target="_blank" class="share-fb"></a>
                             </div>
                             <div class="content-share__item">
-                                <a href="#" class="share-tw"></a>
+                                <a href="https://twitter.com/intent/tweet?text=<?php echo $heading_title; ?>&url=<?=$url?>" target="_blank" class="share-tw"></a>
                             </div>
                             <div class="content-share__item">
-                                <a href="#" class="share-wa"></a>
+                                <a href="https://api.whatsapp.com/send?text=<?php echo $heading_title; ?> <?=$url?>" target="_blank" class="share-wa"></a>
                             </div>
                             <div class="content-share__item">
-                                <a href="#" class="share-tg"></a>
+                                <a href="https://t.me/share/url?url=<?=$url?>&text=<?php echo $heading_title; ?>" target="_blank" class="share-tg"></a>
                             </div>
                         </div>
                         <!-- /.content-soc -->
@@ -197,8 +201,12 @@
                                     <div class="card__pic" style="background-image: url('<?php echo $product['thumb']?>');"></div>
                                 </a>
                                 <div class="card-top">
-                                    <div class="card-sale v-sale"><span>80%</span></div>
-                                    <div class="card-new v-new"><span>new</span></div>
+                                    <?php if ($product['percents']) { ?>
+                                    <div class="card-sale v-sale"><span><?php echo $product['percents'] ?>%</span></div>
+                                    <?php } ?>
+                                    <?php if ($product['badge']) { ?>
+                                    <div class="card-new v-new"><span><?php echo $product['badge'] ?></span></div>
+                                    <?php } ?>
                                 </div>
                                 <div class="card__wrap">
                                     <h3 class="card__title"><a href="<?php echo $product['href']?>"><?php echo $product['name']?></a></h3>
@@ -208,6 +216,7 @@
                                     <div class="card__price"><?php echo $product['price'] ?></div>
                                     <?php } ?>
                                     <div class="card__overlay">
+                                        <?php if ($product['stock'] > 0) {?>
                                         <form class="form-slide">
                                         <div class="card__block">
                                             <?php 
@@ -226,6 +235,7 @@
                                             <?php } ?>
                                         </div>
                                         <div class="card__basket">
+
                                                 <input type="hidden" name="quantity" value="1">
                                                 <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>" />
                                                 <button type="submit" class="btn btn--dark card__btn" 
@@ -241,6 +251,9 @@
                                                 data-href="<?php echo $product['href']; ?>"  data-link-id="buyoneclick-modal">Купить в 1 клик</button>
                                             </div>
                                         </form>
+                                        <?php } else { ?>
+                                        Нет в наличии
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
@@ -256,7 +269,7 @@
                 <div class="section-button-next swiper-button-next"></div>
     
                 <div class="s-link">
-                    <a href="#" class="btn btn--white s-link__btn s-link__btn--white">Больше букетов</a>
+                    <a href="<?php echo $category_link?>" class="btn btn--white s-link__btn s-link__btn--white">Больше букетов</a>
                 </div>
             </div>
             <!-- /.container -->
@@ -278,8 +291,12 @@
                                         <div class="card__pic" style="background-image: url('<?php echo $product['thumb']?>');"></div>
                                     </a>
                                     <div class="card-top">
-                                        <div class="card-sale v-sale"><span>80%</span></div>
-                                        <div class="card-new v-new"><span>new</span></div>
+                                        <?php if ($product['percents']) { ?>
+                                        <div class="card-sale v-sale"><span><?php echo $product['percents'] ?>%</span></div>
+                                        <?php } ?>
+                                        <?php if ($product['badge']) { ?>
+                                        <div class="card-new v-new"><span><?php echo $product['badge'] ?></span></div>
+                                        <?php } ?>
                                     </div>
                                     <div class="card__wrap">
                                         <h3 class="card__title"><a href="<?php echo $product['href']?>"><?php echo $product['name']?></a></h3>
@@ -289,24 +306,26 @@
                                         <div class="card__price"><?php echo $product['price'] ?></div>
                                         <?php } ?>
                                         <div class="card__overlay">
-                                            <form class="form-slide">
-                                            <div class="card__block">
-                                                <?php 
-                                                    foreach ($product['options'] as $option) {  
-                                                    $p = 0;                             
-                                                    ?>
-                                                <?php foreach ($option['product_option_value'] as $option_value) { 
-                                                    $p++;
-                                                    $i = rand(0, 100);
+                                             <?php if ($product['stock'] > 0) {?>
+                                        <form class="form-slide">
+                                        <div class="card__block">
+                                            <?php 
+                                                foreach ($product['options'] as $option) {  
+                                                $p = 0;                             
                                                 ?>
-                                                    <div class="card__item">
-                                                       <input type="radio" id="option_<?php echo $option['product_option_id'].$i; ?>" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" <?php echo ($p==1) ? 'checked' : ''?>>
-                                                        <label for="option_<?php echo $option['product_option_id'].$i; ?>"><?php echo html_entity_decode($option_value['name']); ?></label>
-                                                    </div> 
-                                                 <?php } ?>
-                                                <?php } ?>
-                                            </div>
-                                            <div class="card__basket">
+                                            <?php foreach ($option['product_option_value'] as $option_value) { 
+                                                $p++;
+                                                $i = rand(0, 100);
+                                            ?>
+                                                <div class="card__item">
+                                                   <input type="radio" id="option_<?php echo $option['product_option_id'].$i; ?>" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" <?php echo ($p==1) ? 'checked' : ''?>>
+                                                    <label for="option_<?php echo $option['product_option_id'].$i; ?>"><?php echo html_entity_decode($option_value['name']); ?></label>
+                                                </div> 
+                                             <?php } ?>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="card__basket">
+
                                                 <input type="hidden" name="quantity" value="1">
                                                 <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>" />
                                                 <button type="submit" class="btn btn--dark card__btn" 
@@ -321,7 +340,10 @@
                                                 <button type="button" class="btn btn--fill card__btn byonelick" data-name="<?php echo $product['name']; ?>" 
                                                 data-href="<?php echo $product['href']; ?>"  data-link-id="buyoneclick-modal">Купить в 1 клик</button>
                                             </div>
-                                            </form>
+                                        </form>
+                                        <?php } else { ?>
+                                        Нет в наличии
+                                        <?php } ?>
                                         </div>
                                     </div>
                                 </div>
@@ -337,7 +359,7 @@
                 <div class="section-button-next swiper-button-next"></div>
     
                 <div class="s-link">
-                    <a href="#" class="btn s-link__btn">Все композиции</a>
+                    <a href="/podarki" class="btn s-link__btn">Больше подарков</a>
                 </div>
             </div>
             <!-- /.container -->
@@ -361,8 +383,12 @@
                                         <div class="card__pic" style="background-image: url('<?php echo $product['thumb']?>');"></div>
                                     </a>
                                     <div class="card-top">
-                                        <div class="card-sale v-sale"><span>80%</span></div>
-                                        <div class="card-new v-new"><span>new</span></div>
+                                        <?php if ($product['percents']) { ?>
+                                        <div class="card-sale v-sale"><span><?php echo $product['percents'] ?>%</span></div>
+                                        <?php } ?>
+                                        <?php if ($product['badge']) { ?>
+                                        <div class="card-new v-new"><span><?php echo $product['badge'] ?></span></div>
+                                        <?php } ?>
                                     </div>
                                     <div class="card__wrap">
                                         <h3 class="card__title"><a href="<?php echo $product['href']?>"><?php echo $product['name']?></a></h3>
@@ -372,24 +398,26 @@
                                         <div class="card__price"><?php echo $product['price'] ?></div>
                                         <?php } ?>
                                         <div class="card__overlay">
-                                            <form class="form-slide">
-                                            <div class="card__block">
-                                                <?php 
-                                                    foreach ($product['options'] as $option) {  
-                                                    $p = 0;                             
-                                                    ?>
-                                                <?php foreach ($option['product_option_value'] as $option_value) { 
-                                                    $p++;
-                                                    $i = rand(0, 100);
+                                             <?php if ($product['stock'] > 0) {?>
+                                        <form class="form-slide">
+                                        <div class="card__block">
+                                            <?php 
+                                                foreach ($product['options'] as $option) {  
+                                                $p = 0;                             
                                                 ?>
-                                                    <div class="card__item">
-                                                       <input type="radio" id="option_<?php echo $option['product_option_id'].$i; ?>" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" <?php echo ($p==1) ? 'checked' : ''?>>
-                                                        <label for="option_<?php echo $option['product_option_id'].$i; ?>"><?php echo html_entity_decode($option_value['name']); ?></label>
-                                                    </div> 
-                                                 <?php } ?>
-                                                <?php } ?>
-                                            </div>
-                                            <div class="card__basket">
+                                            <?php foreach ($option['product_option_value'] as $option_value) { 
+                                                $p++;
+                                                $i = rand(0, 100);
+                                            ?>
+                                                <div class="card__item">
+                                                   <input type="radio" id="option_<?php echo $option['product_option_id'].$i; ?>" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" <?php echo ($p==1) ? 'checked' : ''?>>
+                                                    <label for="option_<?php echo $option['product_option_id'].$i; ?>"><?php echo html_entity_decode($option_value['name']); ?></label>
+                                                </div> 
+                                             <?php } ?>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="card__basket">
+
                                                 <input type="hidden" name="quantity" value="1">
                                                 <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>" />
                                                 <button type="submit" class="btn btn--dark card__btn" 
@@ -404,7 +432,10 @@
                                                 <button type="button" class="btn btn--fill card__btn byonelick" data-name="<?php echo $product['name']; ?>" 
                                                 data-href="<?php echo $product['href']; ?>"  data-link-id="buyoneclick-modal">Купить в 1 клик</button>
                                             </div>
-                                            </form>
+                                        </form>
+                                        <?php } else { ?>
+                                        Нет в наличии
+                                        <?php } ?>
                                         </div>
                                     </div>
                                 </div>
@@ -421,7 +452,7 @@
                 <div class="section-button-next swiper-button-next"></div>
     
                 <div class="s-link">
-                    <a href="#" class="btn btn--white s-link__btn s-link__btn--white">Больше букетов</a>
+                    <a href="<?php echo $category_link?>" class="btn btn--white s-link__btn s-link__btn--white">Больше подарков</a>
                 </div>
             </div>
             <!-- /.container -->

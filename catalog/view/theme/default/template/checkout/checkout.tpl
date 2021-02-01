@@ -12,9 +12,27 @@
             </div>
 
             <div class="order__wrap">
-
-                <form action="index.php?route=checkout/confirm" method="post" class="order-form">
-
+                
+                <form action="index.php?route=checkout/confirm" method="post" class="order-form" style="position: relative;">
+                    <div class="waiting" style="display: none; border-top-left-radius: 0px; border-top-right-radius: 0px;">
+                        <div class="windows8">
+                            <div class="wBall" id="wBall_1">
+                                <div class="wInnerBall"></div>
+                            </div>
+                            <div class="wBall" id="wBall_2">
+                                <div class="wInnerBall"></div>
+                            </div>
+                            <div class="wBall" id="wBall_3">
+                                <div class="wInnerBall"></div>
+                            </div>
+                            <div class="wBall" id="wBall_4">
+                                <div class="wInnerBall"></div>
+                            </div>
+                            <div class="wBall" id="wBall_5">
+                                <div class="wInnerBall"></div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="order-details">
                         <div class="order-details-left">
                             <div class="order-details__title order-details__title--customer">Данные покупателя</div>
@@ -333,8 +351,9 @@
                                         </label>
                                     </div>
 
-                                    <div class="payment__btn">
+                                    <div class="payment__btn" style="display: flex; align-items: center; justify-content: flex-start;">
                                         <button class="btn btn--fill payment-btn">Оформить заказ</button>
+                                        <p class="order-checkouting" style="display:none; margin-left: 10px; margin-bottom: 0;"> Заказ оформляется</p>
                                     </div>
 
                                 </div>

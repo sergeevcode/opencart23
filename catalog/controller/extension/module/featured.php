@@ -33,7 +33,8 @@ class ControllerExtensionModuleFeatured extends Controller {
 
 			foreach ($products as $product_id) {
 				$product_info = $this->model_catalog_product->getProduct($product_id);
-
+				 
+				$result['stock'] = $product_info['quantity'];
 				if ($product_info) {
 					if ($product_info['image']) {
 						$image = '/image/'.$product_info['image'];
@@ -42,13 +43,13 @@ class ControllerExtensionModuleFeatured extends Controller {
 					}
 
 					if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
-						$price = $this->currency->format($this->tax->calculate($product_info['price'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+						$price = $product_info['price'];
 					} else {
 						$price = false;
 					}
 
 					if ((float)$product_info['special']) {
-						$special = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+						$special = $product_info['special'];
 						$percents = $this->sale_percent($product_info['price'], $product_info['special']);
 					} else {
 						$special = false;
@@ -116,12 +117,19 @@ class ControllerExtensionModuleFeatured extends Controller {
 						'href'        => $this->url->link('product/product', 'product_id=' . $product_info['product_id']),
 						'options' => array($options),
 						'badge' => $badge,
-						'percents' => $percents
+						'percents' => $percents,
+						'stock' => $product_info['quantity']
 					);
 				}
 			}
 		}
-
+		if ($data['class'] == 'mono') {
+			$data['category_link'] = '/monobukety';
+		} elseif ($data['class'] == 'compositions') {
+			$data['category_link'] = '/kompozicii-i-korziny';
+		} else {
+			$data['category_link'] = '/bukety';
+		}
 		if ($data['products']) {
 			return $this->load->view('extension/module/featured', $data);
 		}

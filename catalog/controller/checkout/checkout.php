@@ -40,7 +40,7 @@ class ControllerCheckoutCheckout extends Controller {
 			$data['deliveries'][] = array(
 				'delivery_id'  => $result['product_id'],				
 				'name'        => $result['name'], 
-				'price'       => number_format($result['price'], 0)
+				'price'       => number_format($result['price'], 0, '', '')
 			);
 		} 
 
@@ -65,7 +65,7 @@ class ControllerCheckoutCheckout extends Controller {
 				'service_id'  => $result['product_id'],				
 				'name'        => $result['name'], 
 				'price'       => $price,
-				'price_number' => number_format($result['price'], 0)
+				'price_number' => number_format($result['price'], 0, '', '')
 			);
 		} 
 				$total_data = array(

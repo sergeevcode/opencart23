@@ -113,4 +113,24 @@
         </div>
         <!-- /.container -->
     </main>
+    <section class="page-descr">
+        <div class="container">
+            <div class="page-descr__wrap">
+                <div class="page-descr__img">
+                    <img src="<?php echo $thumb?>" alt="<?php echo $heading_title?>">
+                </div>
+                <!-- /.page-descr__img -->
+    
+                <div class="page-descr__txt">
+                    <h2 class="page-descr__title"><?php echo $heading_title?></h2>
+                    <?php echo $description?>
+                </div>
+                <!-- /.page-descr__txt -->
+            </div>
+            <!-- /.page-descr__wrap -->
+        </div>
+        <!-- /.container -->
+    </section>
+    <!-- /.page-descr -->
+
 <?php echo $footer; ?>
