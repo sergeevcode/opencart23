@@ -95,5 +95,5 @@
         <!-- /.container -->
         
     </main>
-   <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=f2d78244-7ca1-4693-90c4-cb2094456486" type="text/javascript"></script>
+   <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=f2d78244-7ca1-4693-90c4-cb2094456486" type="text/javascript"></script>
 <?php echo $footer; ?>

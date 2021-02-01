@@ -256,6 +256,6 @@
     <script src="/assets/js/slick.min.js"></script>
     <script src="/assets/js/swiper-bundle.min.js"></script>
     <script src="/assets/js/masked.input.js"></script>
-    <script src="/assets/js/app.js"></script>
+    <script src="/assets/js/app.js?ver=2.5"></script>
 </body>
 </html>
