@@ -16,6 +16,8 @@ class ModelCatalogProduct extends Model {
 				'meta_description' => $query->row['meta_description'],
 				'meta_keyword'     => $query->row['meta_keyword'],
 				'tag'              => $query->row['tag'],
+				'color'              => $query->row['color'],
+				'badge'              => $query->row['badge'],
 				'model'            => $query->row['model'],
 				'sku'              => $query->row['sku'],
 				'upc'              => $query->row['upc'],
@@ -148,7 +150,57 @@ class ModelCatalogProduct extends Model {
 
 			$sql .= ")";
 		}
+		if (!empty($data['filter_name']) || !empty($data['filter_color'])) {
+			$sql .= " AND (";
 
+			if (!empty($data['filter_name'])) {
+				$implode = array();
+
+				$words = explode(' ', trim(preg_replace('/\s+/', ' ', $data['filter_name'])));
+
+				foreach ($words as $word) {
+					$implode[] = "pd.name LIKE '%" . $this->db->escape($word) . "%'";
+				}
+
+				if ($implode) {
+					$sql .= " " . implode(" AND ", $implode) . "";
+				}
+
+				if (!empty($data['filter_description'])) {
+					$sql .= " OR pd.description LIKE '%" . $this->db->escape($data['filter_name']) . "%'";
+				}
+			}
+
+			if (!empty($data['filter_name']) && !empty($data['filter_color'])) {
+				$sql .= " OR ";
+			}
+
+			if (!empty($data['filter_color'])) {
+				$implode = array();
+
+				$words = explode(' ', trim(preg_replace('/\s+/', ' ', $data['filter_color'])));
+
+				foreach ($words as $word) {
+					$implode[] = "pd.color LIKE '%" . $this->db->escape($word) . "%'";
+				}
+
+				if ($implode) {
+					$sql .= " " . implode(" AND ", $implode) . "";
+				}
+			}
+
+			if (!empty($data['filter_name'])) {
+				$sql .= " OR LCASE(p.model) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LCASE(p.sku) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LCASE(p.upc) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LCASE(p.ean) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LCASE(p.jan) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LCASE(p.isbn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+				$sql .= " OR LCASE(p.mpn) = '" . $this->db->escape(utf8_strtolower($data['filter_name'])) . "'";
+			}
+
+			$sql .= ")";
+		}
 		if (!empty($data['filter_manufacturer_id'])) {
 			$sql .= " AND p.manufacturer_id = '" . (int)$data['filter_manufacturer_id'] . "'";
 		}

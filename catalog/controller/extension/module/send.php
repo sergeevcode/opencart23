@@ -28,6 +28,13 @@ class ControllerExtensionModuleSend extends Controller {
 			Телефон: <b>'.$this->request->post['user-phone'].'</b><br> 
 			Отзыв: <br>'.$this->request->post['message'].'
 			';
+		} elseif ($this->request->post['subject'] == 'byoneclick') {
+			$subject = "Заказ в один клик";
+			$message = '
+			Имя: <b>'.$this->request->post['user-name'].'</b><br> 
+			Телефон: <b>'.$this->request->post['user-phone'].'</b><br> 
+			Товар: <a href="'.$this->request->post['link'].'">'.$this->request->post['name'].'</a>
+			';
 		}
 
 		$mail->setTo($this->config->get('config_email'));

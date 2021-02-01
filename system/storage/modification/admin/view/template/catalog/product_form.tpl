@@ -90,6 +90,19 @@
                       <input type="text" name="product_description[<?php echo $language['language_id']; ?>][tag]" value="<?php echo isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['tag'] : ''; ?>" placeholder="<?php echo $entry_tag; ?>" id="input-tag<?php echo $language['language_id']; ?>" class="form-control" />
                     </div>
                   </div> 
+                  
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-color<?php echo $language['language_id']; ?>"><span data-toggle="tooltip" title="<?php echo $help_color; ?>"><?php echo $entry_color; ?></span></label>
+                    <div class="col-sm-10">
+                      <input type="text" name="product_description[<?php echo $language['language_id']; ?>][color]" value="<?php echo isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['color'] : ''; ?>" placeholder="<?php echo $entry_color; ?>" id="input-color<?php echo $language['language_id']; ?>" class="form-control" />
+                    </div>
+                  </div> 
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label" for="input-badge<?php echo $language['language_id']; ?>"><span data-toggle="tooltip" title="<?php echo $help_badge; ?>"><?php echo $entry_badge; ?></span></label>
+                    <div class="col-sm-10">
+                      <input type="text" name="product_description[<?php echo $language['language_id']; ?>][badge]" value="<?php echo isset($product_description[$language['language_id']]) ? $product_description[$language['language_id']]['badge'] : ''; ?>" placeholder="<?php echo $entry_badge; ?>" id="input-badge<?php echo $language['language_id']; ?>" class="form-control" />
+                    </div>
+                  </div> 
                 </div>
                 <?php } ?>
               </div>

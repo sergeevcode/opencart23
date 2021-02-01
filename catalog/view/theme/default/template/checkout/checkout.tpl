@@ -140,7 +140,7 @@
                                         <div class="order-delivery-time">
                                             <div class="order-delivery-time__left">
                                                 <div class="radio order-delivery-time__radio">
-                                                    <input type="radio" name="delivery-time" value="1" id="delivery-period-time">
+                                                    <input type="radio" name="delivery-time" value="1" id="delivery-period-time" checked="">
                                                     <label for="delivery-period-time">Временной промежуток доставки</label>
                                                 </div>
                                                 <div class="order-delivery-time__select select">
@@ -154,24 +154,24 @@
 
                                             <div class="order-delivery-time__right">
                                                 <div class="radio order-delivery-time__radio">
-                                                    <input type="radio" name="delivery-time" value="2" id="delivery-exact-time">
+                                                    <input type="radio" name="delivery-time" value="2" data-price="<?php echo number_format($delivery_tax['price'], 0) ?>" id="delivery-exact-time">
                                                     <label for="delivery-exact-time">Точное время доставки (+ 100 рублей)</label>
                                                 </div>
 
                                                 <div class="order-delivery-time__input">
                                                     <div class="order-delivery-time__amount">
                                                         <div class="amount">
-                                                            <button type="button" class="amount__btn-minus">-</button>
-                                                            <input type="text" class="amount__input" name="amount" maxlength="3" value="00">
-                                                            <button type="button" class="amount__btn-plus">+</button>
+                                                            <button type="button" class="amount__btn-minus" data-minus="hours">-</button>
+                                                            <input type="text" class="amount__input" name="hours" maxlength="3" value="00">
+                                                            <button type="button" class="amount__btn-plus" data-plus="hours">+</button>
                                                         </div>
                                                         <div class="amount__measure">часов</div>
                                                     </div>
                                                     <div class="order-delivery-time__amount">
                                                         <div class="amount">
-                                                            <button type="button" class="amount__btn-minus">-</button>
-                                                            <input type="text" class="amount__input" name="amount" maxlength="3" value="00">
-                                                            <button type="button" class="amount__btn-plus">+</button>
+                                                            <button type="button" class="amount__btn-minus" data-plus="minutes">-</button>
+                                                            <input type="text" class="amount__input" name="minutes" maxlength="3" value="00">
+                                                            <button type="button" class="amount__btn-plus" data-plus="minutes">+</button>
                                                         </div>
                                                         <div class="amount__measure">минут</div>
                                                     </div>
@@ -329,7 +329,7 @@
                                     <div class="checkbox">
                                         <input type="checkbox" name="online-payment-checkbox" id="cash-payment-checkbox" checked>
                                         <label for="cash-payment-checkbox">
-                                            <span>Нажимая кнопку «Оформить заказ», Вы даете свое согласие на обработку персональных данных в соответствии с <a href="#" target="_blank" rel="noopener noreferrer">Политикой обработки персональных данных</a></span>
+                                            <span>Нажимая кнопку «Оформить заказ», Вы даете свое согласие на обработку персональных данных в соответствии с <a href="/terms" target="_blank" rel="noopener noreferrer">Политикой обработки персональных данных</a></span>
                                         </label>
                                     </div>
 

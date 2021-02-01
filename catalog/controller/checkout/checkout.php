@@ -44,6 +44,8 @@ class ControllerCheckoutCheckout extends Controller {
 			);
 		} 
 
+		$data['delivery_tax'] = $this->model_catalog_product->getProduct(58);
+	 
 		$filter_data = array(
 			'filter_category_id' => '73'
 		);

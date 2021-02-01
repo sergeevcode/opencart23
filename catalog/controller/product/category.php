@@ -148,20 +148,70 @@ class ControllerProductCategory extends Controller {
 				$url .= '&limit=' . $this->request->get['limit'];
 			}
 
-			$data['categories'] = array();
+			$data['categories'][0] = array(
+				'name' => 'Все цветы',
+				'href' => '/vse-cvety',				
+			);
 
-			$results = $this->model_catalog_category->getCategories($category_id);
+			$categories = $this->model_catalog_category->getCategories(74);
 
-			foreach ($results as $result) {
-				$filter_data = array(
-					'filter_category_id'  => $result['category_id'],
-					'filter_sub_category' => true
-				);
+			foreach ($categories as $category) {
+				if ($category['top']) {
+					// Level 2
+					$children_data = array();
 
-				$data['categories'][] = array(
-					'name' => $result['name'] . ($this->config->get('config_product_count') ? ' (' . $this->model_catalog_product->getTotalProducts($filter_data) . ')' : ''),
-					'href' => $this->url->link('product/category', 'path=' . $this->request->get['path'] . '_' . $result['category_id'] . $url)
-				);
+					$children = $this->model_catalog_category->getCategories($category['category_id']);
+
+					foreach ($children as $child) {
+						$filter_data = array(
+							'filter_category_id'  => $child['category_id'],
+							'filter_sub_category' => true
+						);
+
+						$children_data[] = array(
+							'name'  => $child['name'],
+							'href'  => $this->url->link('product/category', 'path=' . $category['category_id'] . '_' . $child['category_id'])
+						);
+					}
+
+					// Level 1
+					$data['categories'][0]['children'][] = array(
+						'name'     => $category['name'],
+						'children' => $children_data,
+						'column'   => $category['column'] ? $category['column'] : 1,
+						'href'     => $this->url->link('product/category', 'path=' . $category['category_id'])
+					);
+				}
+			}
+			$categories = $this->model_catalog_category->getCategories(0);
+
+			foreach ($categories as $category) {
+				if ($category['top']) {
+					// Level 2
+					$children_data = array();
+
+					$children = $this->model_catalog_category->getCategories($category['category_id']);
+
+					foreach ($children as $child) {
+						$filter_data = array(
+							'filter_category_id'  => $child['category_id'],
+							'filter_sub_category' => true
+						);
+
+						$children_data[] = array(
+							'name'  => $child['name'],
+							'href'  => $this->url->link('product/category', 'path=' . $category['category_id'] . '_' . $child['category_id'])
+						);
+					}
+
+					// Level 1
+					$data['categories'][] = array(
+						'name'     => $category['name'],
+						'children' => $children_data,
+						'column'   => $category['column'] ? $category['column'] : 1,
+						'href'     => $this->url->link('product/category', 'path=' . $category['category_id'])
+					);
+				}
 			}
 
 			$data['products'] = array();

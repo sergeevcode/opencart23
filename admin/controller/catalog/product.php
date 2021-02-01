@@ -609,6 +609,8 @@ class ControllerCatalogProduct extends Controller {
 		$data['entry_date_end'] = $this->language->get('entry_date_end');
 		$data['entry_priority'] = $this->language->get('entry_priority');
 		$data['entry_tag'] = $this->language->get('entry_tag');
+		$data['entry_color'] = 'Цвета';
+		$data['entry_badge'] = 'Бейджик';
 		$data['entry_customer_group'] = $this->language->get('entry_customer_group');
 		$data['entry_reward'] = $this->language->get('entry_reward');
 		$data['entry_layout'] = $this->language->get('entry_layout');
@@ -630,6 +632,8 @@ class ControllerCatalogProduct extends Controller {
 		$data['help_download'] = $this->language->get('help_download');
 		$data['help_related'] = $this->language->get('help_related');
 		$data['help_tag'] = $this->language->get('help_tag');
+		$data['help_color'] = 'Цвета букета для поиска';
+		$data['help_badge'] = 'Бейдж на карточке товара';
 
 		$data['button_save'] = $this->language->get('button_save');
 		$data['button_cancel'] = $this->language->get('button_cancel');

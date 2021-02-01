@@ -43,6 +43,8 @@
 						          <?php foreach ($informations as $information) { ?>
 						          	<li><a href="<?php echo $information['href']; ?>"><?php echo $information['title']; ?></a></li>
 						          <?php } ?>
+                                <li><a href="<?php echo $contact; ?>">Контакты</a></li>
+                                <li><a href="/terms">Политика обработки персональных данных</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -72,6 +74,41 @@
         </div>
     </footer>
 
+    <div class="modal" data-modal-id="buyoneclick-modal">
+        <div class="modal__window">
+    
+            <div class="modal__content">
+                <button class="modal-close">&#10006;</button>
+                
+                <div class="modal__title">Купить в один клик</div>
+
+                <form action="#" class="modal-form byoneclick">
+                    <input type="hidden" name="subject" value="byoneclick">
+                    <input type="hidden" name="link" value="">
+                    <input type="hidden" name="name" value="">
+                    <div class="input">
+                        <label class="order-label" for="user-name">Имя*</label>
+                        <input class="order-input" type="text" name="user-name" id="user-name" required>
+                    </div>
+                    <div class="input">
+                        <label class="order-label" for="user-phone">Телефон*</label>
+                        <input class="order-input" type="tel" name="user-phone" id="user-phone" required>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" name="callme" id="callme" checked>
+                        <label for="callme">
+                            <span>Нажимая кнопку «Жду звонка!», Вы даете свое согласие на обработку персональных данных в соответствии с <a href="/terms" target="_blank" rel="noopener noreferrer">Политикой обработки персональных данных</a></span>
+                        </label>
+                    </div>
+                    <button class="btn btn--fill btn-modal">Жду звонка!</button>
+                </form>
+                
+            </div>
+            <!-- /.modal__content -->
+    
+        </div>
+    </div>
+    <!-- /.modal -->
 
     <div class="modal" data-modal-id="callback-modal">
         <div class="modal__window">
@@ -94,7 +131,7 @@
                     <div class="checkbox">
                         <input type="checkbox" name="callme" id="callme" checked>
                         <label for="callme">
-                            <span>Нажимая кнопку «Жду звонка!», Вы даете свое согласие на обработку персональных данных в соответствии с <a href="#" target="_blank" rel="noopener noreferrer">Политикой обработки персональных данных</a></span>
+                            <span>Нажимая кнопку «Жду звонка!», Вы даете свое согласие на обработку персональных данных в соответствии с <a href="/terms" target="_blank" rel="noopener noreferrer">Политикой обработки персональных данных</a></span>
                         </label>
                     </div>
                     <button class="btn btn--fill btn-modal">Жду звонка!</button>
@@ -128,7 +165,7 @@
                     <div class="checkbox">
                         <input type="checkbox" name="delivery-sms" id="delivery-sms" checked>
                         <label for="delivery-sms">
-                            <span>Нажимая кнопку «Жду звонка!», Вы даете свое согласие на обработку персональных данных в соответствии с <a href="#" target="_blank" rel="noopener noreferrer">Политикой обработки персональных данных</a></span>
+                            <span>Нажимая кнопку «Жду звонка!», Вы даете свое согласие на обработку персональных данных в соответствии с <a href="/terms" target="_blank" rel="noopener noreferrer">Политикой обработки персональных данных</a></span>
                         </label>
                     </div>
                     <button class="btn btn--fill btn-modal">Жду звонка!</button>
@@ -199,7 +236,7 @@
                     <div class="checkbox">
                         <input type="checkbox" name="send-review" id="send-review" checked>
                         <label for="send-review">
-                            <span>Нажимая кнопку «Оставить отзыв!», Вы даете свое согласие на обработку персональных данных в соответствии с <a href="/privacy" target="_blank" rel="noopener noreferrer">Политикой обработки персональных данных</a></span>
+                            <span>Нажимая кнопку «Оставить отзыв!», Вы даете свое согласие на обработку персональных данных в соответствии с <a href="/terms" target="_blank" rel="noopener noreferrer">Политикой обработки персональных данных</a></span>
                         </label>
                     </div>
                     <button class="btn btn--fill btn-modal">Оставить отзыв</button>
@@ -218,6 +255,7 @@
     <script src="/assets/js/bootstrap-datepicker.ru.min.js"></script>
     <script src="/assets/js/slick.min.js"></script>
     <script src="/assets/js/swiper-bundle.min.js"></script>
+    <script src="/assets/js/masked.input.js"></script>
     <script src="/assets/js/app.js"></script>
 </body>
 </html>

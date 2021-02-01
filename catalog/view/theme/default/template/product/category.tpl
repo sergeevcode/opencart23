@@ -27,126 +27,47 @@
                     
                     <div id="accordion" class="accordion"> 
 
+                        <?php foreach($categories as $category) { ?>
                         <div class="accordion-item">
+                            <?php if ($category['children']) {?>
                             <div class="accordion-item__header">
-                                Все цветы
+                                <?php echo ($category['name']) ?>
                             </div>
                             <!-- /.accordion-item__header -->
                             <div class="accordion-item__content">
-
+                                <?php foreach($category['children'] as $children) { ?>
                                 <div class="accordion-sub-item">
+                                    <?php if ($children['children']) { ?>
                                     <div class="accordion-sub-item__header">
-                                        Букеты
+                                        <?php echo $children['name'] ?>
                                     </div>
                                     <div class="accordion-sub-item__content">
                                         <ul>
-                                            <li class="active"><a href="#">С розами</a></li>
-                                            <li><a href="#">С герберами</a></li>
-                                            <li><a href="#">С тюльпанами</a></li>
+                                            <?php foreach($children['children'] as $child) {?> 
+                                            <li><a href="<?php echo $child['href']?>"><?php echo $child['name']?></a></li>
+                                            <?php } ?>
                                         </ul>
                                     </div>
-                                </div>
-
-                                <div class="accordion-sub-item">
+                                    <?php } else { ?>
                                     <div class="accordion-sub-item__header">
-                                        Моно букеты
+                                        <a href="<?php echo $children['href'] ?>"><?php echo $children['name'] ?></a>
                                     </div>
-                                    <div class="accordion-sub-item__content">
-                                        <ul>
-                                            <li><a href="#">С розами</a></li>
-                                            <li><a href="#">С герберами</a></li>
-                                            <li><a href="#">С тюльпанами</a></li>
-                                        </ul>
-                                    </div>
+                                    <?php } ?>
                                 </div>
-
-                                <div class="accordion-sub-item">
-                                    <div class="accordion-sub-item__header">
-                                        Композиции и корзины
-                                    </div>
-                                    <div class="accordion-sub-item__content">
-                                        <ul>
-                                            <li><a href="#">С розами</a></li>
-                                            <li><a href="#">С герберами</a></li>
-                                            <li><a href="#">С тюльпанами</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="accordion-sub-item">
-                                    <div class="accordion-sub-item__header">
-                                        Цветы по поводу
-                                    </div>
-                                    <div class="accordion-sub-item__content">
-                                        <ul>
-                                            <li><a href="#">С розами</a></li>
-                                            <li><a href="#">С герберами</a></li>
-                                            <li><a href="#">С тюльпанами</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="accordion-sub-item">
-                                    <div class="accordion-sub-item__header">
-                                        Букеты по цвету
-                                    </div>
-                                    <div class="accordion-sub-item__content">
-                                        <ul>
-                                            <li><a href="#">С розами</a></li>
-                                            <li><a href="#">С герберами</a></li>
-                                            <li><a href="#">С тюльпанами</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <?php } ?>
+                                
 
                             </div>
+                            <?php } else {?> 
+                            <div class="accordion-item__header without-chevron" onclick="location.replace('<?php echo $category['href'] ?>')">
+                                <a href="<?php echo $category['href'] ?>"><?php echo ($category['name']) ?></a>
+                            </div>
+                            <?php } ?>
                             <!-- /.accordion-item__content -->
                         </div>
                         <!-- /.accordion-item -->
-                      
-                        <div class="accordion-item">
-                            <div class="accordion-item__header">
-                                Комнатные цветы
-                            </div>
-                            <!-- /.accordion-item__header -->
-                            <div class="accordion-item__content">
+                        <?php } ?>
 
-                                <div class="accordion-sub-item">
-                                    <div class="accordion-sub-item__header">
-                                        Моно букеты
-                                    </div>
-                                    <div class="accordion-sub-item__content">
-                                        <ul>
-                                            <li><a href="#">С розами</a></li>
-                                            <li><a href="#">С герберами</a></li>
-                                            <li><a href="#">С тюльпанами</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <!-- /.accordion-item__content -->
-                        </div>
-                        <!-- /.accordion-item -->
-                      
-                        <div class="accordion-item">
-                            <div class="accordion-item__header">
-                                Подарки
-                            </div>
-                            <!-- /.accordion-item__header -->
-                            <div class="accordion-item__content">
-
-                                <div class="accordion-sub-item">
-                                    <div class="accordion-sub-item__header">
-                                        Моно букеты
-                                    </div>
-                                </div>
-
-                            </div>
-                            <!-- /.accordion-item__content -->
-                        </div>
-                        <!-- /.accordion-item -->
-                      
                       </div>
 
                 </div>

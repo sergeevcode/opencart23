@@ -23,6 +23,14 @@ class ControllerProductSearch extends Controller {
 			$tag = '';
 		}
 
+		if (isset($this->request->get['color'])) {
+			$color = $this->request->get['color'];
+		} elseif (isset($this->request->get['search'])) {
+			$color = $this->request->get['search'];
+		} else {
+			$color = '';
+		}
+
 		if (isset($this->request->get['description'])) {
 			$description = $this->request->get['description'];
 		} else {
@@ -69,6 +77,8 @@ class ControllerProductSearch extends Controller {
 			$this->document->setTitle($this->language->get('heading_title') .  ' - ' . $this->request->get['search']);
 		} elseif (isset($this->request->get['tag'])) {
 			$this->document->setTitle($this->language->get('heading_title') .  ' - ' . $this->language->get('heading_tag') . $this->request->get['tag']);
+		} elseif (isset($this->request->get['color'])) {
+			$this->document->setTitle($this->language->get('heading_title') .  ' - ' . $this->language->get('heading_color') . $this->request->get['color']);
 		} else {
 			$this->document->setTitle($this->language->get('heading_title'));
 		}
@@ -89,7 +99,9 @@ class ControllerProductSearch extends Controller {
 		if (isset($this->request->get['tag'])) {
 			$url .= '&tag=' . urlencode(html_entity_decode($this->request->get['tag'], ENT_QUOTES, 'UTF-8'));
 		}
-
+		if (isset($this->request->get['color'])) {
+			$url .= '&color=' . urlencode(html_entity_decode($this->request->get['color'], ENT_QUOTES, 'UTF-8'));
+		}
 		if (isset($this->request->get['description'])) {
 			$url .= '&description=' . $this->request->get['description'];
 		}
@@ -196,10 +208,11 @@ class ControllerProductSearch extends Controller {
 
 		$data['products'] = array();
 
-		if (isset($this->request->get['search']) || isset($this->request->get['tag'])) {
+		if (isset($this->request->get['search']) || isset($this->request->get['tag']) || isset($this->request->get['color']) ) {
 			$filter_data = array(
 				'filter_name'         => $search,
 				'filter_tag'          => $tag,
+				'filter_color'          => $color,
 				'filter_description'  => $description,
 				'filter_category_id'  => $category_id,
 				'filter_sub_category' => $sub_category,
@@ -266,6 +279,10 @@ class ControllerProductSearch extends Controller {
 
 			if (isset($this->request->get['tag'])) {
 				$url .= '&tag=' . urlencode(html_entity_decode($this->request->get['tag'], ENT_QUOTES, 'UTF-8'));
+			}
+
+			if (isset($this->request->get['color'])) {
+				$url .= '&color=' . urlencode(html_entity_decode($this->request->get['color'], ENT_QUOTES, 'UTF-8'));
 			}
 
 			if (isset($this->request->get['description'])) {
@@ -352,6 +369,10 @@ class ControllerProductSearch extends Controller {
 				$url .= '&tag=' . urlencode(html_entity_decode($this->request->get['tag'], ENT_QUOTES, 'UTF-8'));
 			}
 
+			if (isset($this->request->get['color'])) {
+				$url .= '&color=' . urlencode(html_entity_decode($this->request->get['color'], ENT_QUOTES, 'UTF-8'));
+			}
+
 			if (isset($this->request->get['description'])) {
 				$url .= '&description=' . $this->request->get['description'];
 			}
@@ -394,6 +415,10 @@ class ControllerProductSearch extends Controller {
 
 			if (isset($this->request->get['tag'])) {
 				$url .= '&tag=' . urlencode(html_entity_decode($this->request->get['tag'], ENT_QUOTES, 'UTF-8'));
+			}
+
+			if (isset($this->request->get['color'])) {
+				$url .= '&color=' . urlencode(html_entity_decode($this->request->get['color'], ENT_QUOTES, 'UTF-8'));
 			}
 
 			if (isset($this->request->get['description'])) {

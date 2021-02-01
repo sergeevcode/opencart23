@@ -12,9 +12,13 @@
                             <a href="<?php echo $product['href']; ?>">
                                 <div class="card__pic" style="background-image: url('<?php echo $product['thumb']; ?>');"></div>
                             </a>
-                            <div class="card-top" style="display: none;">
-                                <div class="card-sale v-sale"><span>80%</span></div>
-                                <div class="card-new v-new"><span>new</span></div>
+                            <div class="card-top">
+                                <?php if ($product['percents']) { ?>
+                                <div class="card-sale v-sale"><span><?php echo $product['percents'] ?>%</span></div>
+                                <?php } ?>
+                                <?php if ($product['badge']) { ?>
+                                <div class="card-new v-new"><span><?php echo $product['badge'] ?></span></div>
+                                <?php } ?>
                             </div>
                             <div class="card__wrap">
                                 <h3 class="card__title"><a href="<?php echo $product['href']; ?>"><?php echo $product['name']; ?></a></h3>
@@ -41,20 +45,21 @@
 			                				<?php } ?>
 		                				<?php } ?>
                                     </div>
-                                    <div class="card__basket">
-                                        <input type="hidden" name="quantity" value="1">
-                                        <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>" />
-                                        <button class="btn btn--dark card__btn" 
-                                        data-price="<?=($product['special']) ? $product['special'] : $product['price']; ?>" 
-                                        data-link-id="basket-modal" 
-                                        data-image="<?php echo $product['thumb']; ?>" 
-                                        data-name="<?php echo $product['name']; ?>" 
-                                        data-href="<?php echo $product['href']; ?>" 
+                                     <div class="card__basket">
+                                                <input type="hidden" name="quantity" value="1">
+                                                <input type="hidden" name="product_id" value="<?php echo $product['product_id']; ?>" />
+                                                <button type="submit" class="btn btn--dark card__btn" 
+                                                data-price="<?=($product['special']) ? $product['special'] : $product['price']; ?>" 
+                                                data-link-id="basket-modal" 
+                                                data-image="<?php echo $product['thumb']; ?>" 
+                                                data-name="<?php echo $product['name']; ?>" 
+                                                data-href="<?php echo $product['href']; ?>" 
 
-                                            data-link-id="basket-modal">В корзину</button>
-                                        
-                                        <button class="btn btn--fill card__btn">Купить в 1 клик</button>
-                                    </div>
+                                                    data-link-id="basket-modal">В корзину</button>
+                                                
+                                                <button type="button" class="btn btn--fill card__btn byonelick" data-name="<?php echo $product['name']; ?>" 
+                                                data-href="<?php echo $product['href']; ?>"  data-link-id="buyoneclick-modal">Купить в 1 клик</button>
+                                            </div>
                                     </form>
                                 </div>
                             </div>

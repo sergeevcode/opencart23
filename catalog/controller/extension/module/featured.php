@@ -49,8 +49,10 @@ class ControllerExtensionModuleFeatured extends Controller {
 
 					if ((float)$product_info['special']) {
 						$special = $this->currency->format($this->tax->calculate($product_info['special'], $product_info['tax_class_id'], $this->config->get('config_tax')), $this->session->data['currency']);
+						$percents = $this->sale_percent($product_info['price'], $product_info['special']);
 					} else {
 						$special = false;
+						$percents = false;
 					}
 
 					if ($this->config->get('config_tax')) {
@@ -97,7 +99,11 @@ class ControllerExtensionModuleFeatured extends Controller {
 							'required'             => $option['required']
 						);
 					}
-
+					if ($product_info['badge'] != '') {
+						$badge = $product_info['badge'];
+					} else {
+						$badge = false;
+					}
 					$data['products'][] = array(
 						'product_id'  => $product_info['product_id'],
 						'thumb'       => $image,
@@ -108,7 +114,9 @@ class ControllerExtensionModuleFeatured extends Controller {
 						'tax'         => $tax,
 						'rating'      => $rating,
 						'href'        => $this->url->link('product/product', 'product_id=' . $product_info['product_id']),
-						'options' => array($options)
+						'options' => array($options),
+						'badge' => $badge,
+						'percents' => $percents
 					);
 				}
 			}
@@ -117,5 +125,9 @@ class ControllerExtensionModuleFeatured extends Controller {
 		if ($data['products']) {
 			return $this->load->view('extension/module/featured', $data);
 		}
+	}
+
+	function sale_percent($price, $sale) {
+		return round((($price - $sale) * 100) / $price, 0);
 	}
 }
