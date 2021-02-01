@@ -317,12 +317,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		paymentTabs.render();
 	}
 
-	if (document.querySelector('.date-input')) {
-		$('.date-input').datepicker({
-			language: "ru",
-			orientation: "bottom auto"
-		});
-	}
 
 	// Modal 
 	const popUp = () => {
@@ -388,6 +382,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 (function($){
 
+	if ($('.date-input').length > 0) {
+		$('.date-input').datepicker({
+			language: "ru",
+			orientation: "bottom auto"
+		});
+	}
+
 	$('#button-cart').on('click', function() {
 		$(".modal-card").find("a").attr("href", $(this).data("href"));
 		$(".modal-card").find(".card__title a").text($(this).data("name"));
@@ -415,7 +416,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		if ($(this).data("link-id") == 'basket-modal') {
 			$(".modal-card").find("a").attr("href", $(this).data("href"));
 			$(".modal-card").find(".card__title a").text($(this).data("name"));
-			$(".modal-card").find(".card__price").text($(this).data("price"));
+			$(".modal-card").find(".card__price").text($(this).closest('.card').find(".card__price span").text() + ' руб.');
 			$(".modal-card").find(".card__pic").css({
 				"background-image" : "url('"+$(this).data("image")+"')"
 			});
@@ -573,9 +574,14 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 	});
 
-	$('[type="radio"][data-price]').click(function(){
+	$('[type="radio"][data-price]').click(function(){	
 		var plusprice = $(this).data("price");
-		$("span.current_price").text(numberWithSpaces(parseInt($("span.current_price").data("price")) + plusprice));
+		if (!$(this).closest(".form-slide")) {		
+			$("span.current_price").text(numberWithSpaces(parseInt($("span.current_price").data("price")) + plusprice));
+		} else {
+			var price_obj = $(this).closest(".card").find(".card__price span");
+			price_obj.text(numberWithSpaces(parseInt(price_obj.data("price")) + plusprice));
+		}
 	});
 
 	$('[name="services-name"]').change(function(){
@@ -675,7 +681,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			if ($('[name="territory-entrance"]').val() != '') {
 				comment += 'Подъезд: '+$('[name="territory-entrance"]').val()+'\n';
 			} 
- 
+ 			comment += 'Дата доставки ' + $('[name="date"]').val() + '\n';
 			$.ajax({
 				url: 'index.php?route=checkout/cart/add',
 				type: 'post',
@@ -685,6 +691,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		} else {
 			comment += 'Способ доставки: ' + $('[name="shipping_method"]').val() + '\n';
 		}
+
+
 		$('[name="services-name"]').each(function() {
 			if ($(this).prop("checked")) {
 				$.ajax({
@@ -779,11 +787,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	 		}
 	 	}
  	});
- 	$(".photo-slider-nav__item").click(function(){
- 		var photo = $(this).find("img").attr("src");
- 		(".photo-slider__item").find("a").attr("href", photo);
- 		(".photo-slider__item").find("img").attr("src", photo);
- 	});
+ 
 	// var cart = {
 	// 'add': function(product_id, quantity) {
 	//  $.ajax({

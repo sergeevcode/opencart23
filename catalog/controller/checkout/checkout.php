@@ -23,7 +23,7 @@ class ControllerCheckoutCheckout extends Controller {
 			}
 		}
 
-
+		$data['config_work_time'] = explode(";", $this->config->get('config_work_time'));
 
 		$data['deliveries'] = array();
 

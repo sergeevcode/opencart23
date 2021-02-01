@@ -262,11 +262,10 @@ class ControllerCheckoutCart extends Controller {
 			foreach ($totals as $total) { 
 				$data['totals'][] = array(
 					'title' => $total['title'],
-					'text'  => $this->currency->format($total['value'], $this->session->data['currency'])
+					'text'  => number_format($total['value'], 0, '',' ')
 				);
 			}
- 
-
+  
 			$data['continue'] = $this->url->link('common/home');
 
 			$data['checkout'] = $this->url->link('checkout/checkout', '', true);

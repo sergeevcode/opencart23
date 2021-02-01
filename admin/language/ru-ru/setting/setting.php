@@ -46,6 +46,7 @@ $_['entry_geocode']                = 'Geocode';
 $_['entry_email']                  = 'E-Mail';
 $_['entry_telephone']              = 'Телефон';
 $_['entry_fax']                    = 'Факс';
+$_['entry_work_time']              = 'Режим работы доставки';
 $_['entry_image']                  = 'Изображение';
 $_['entry_open']                   = 'Режим работы';
 $_['entry_comment']                = 'Дополнительная информация';

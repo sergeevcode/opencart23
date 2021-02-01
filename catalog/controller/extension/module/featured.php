@@ -36,16 +36,17 @@ class ControllerExtensionModuleFeatured extends Controller {
 				 
 				$result['stock'] = $product_info['quantity'];
 				if ($product_info) {
+
 					if ($product_info['image']) {
 						$image = '/image/'.$product_info['image'];
 					} else {
 						$image = '/image/placeholder.png';
 					}
 
-					if ($this->customer->isLogged() || !$this->config->get('config_customer_price')) {
-						$price = $product_info['price'];
+					if ($product_info['price']) {
+						$price_product = $product_info['price'];
 					} else {
-						$price = false;
+						$price_product = false;
 					}
 
 					if ((float)$product_info['special']) {
@@ -74,7 +75,7 @@ class ControllerExtensionModuleFeatured extends Controller {
 						foreach ($option['product_option_value'] as $option_value) {
 							if (!$option_value['subtract'] || ($option_value['quantity'] > 0)) {
 								if ((($this->config->get('config_customer_price') && $this->customer->isLogged()) || !$this->config->get('config_customer_price')) && (float)$option_value['price']) {
-									$price = $this->currency->format($this->tax->calculate($option_value['price'], $product_info['tax_class_id'], $this->config->get('config_tax') ? 'P' : false), $this->session->data['currency']);
+									$price = $option_value['price'];
 								} else {
 									$price = false;
 								}
@@ -110,7 +111,7 @@ class ControllerExtensionModuleFeatured extends Controller {
 						'thumb'       => $image,
 						'name'        => $product_info['name'],
 						'description' => utf8_substr(strip_tags(html_entity_decode($product_info['description'], ENT_QUOTES, 'UTF-8')), 0, $this->config->get($this->config->get('config_theme') . '_product_description_length')) . '..',
-						'price'       => $price,
+						'price'       => $price_product,
 						'special'     => $special,
 						'tax'         => $tax,
 						'rating'      => $rating,

@@ -149,7 +149,7 @@
                                         <div class="date__title">Дата доставки:</div>
 
                                         <div class="date-input input date">
-                                            <input type="text" class="form-control">
+                                            <input type="text" name="date" class="form-control">
                                             <span class="input-group-addon">
                                                 <img src="/assets/images/icons/date-piccer.png" alt="">
                                             </span>
@@ -163,9 +163,11 @@
                                                 </div>
                                                 <div class="order-delivery-time__select select">
                                                     <select name="period">
-                                                        <option value="07:00 - 13:00">07:00 - 13:00</option>
-                                                        <option value="13:00 - 15:00">13:00 - 15:00</option>
-                                                        <option value="15:00 - 18:00">15:00 - 18:00</option>
+                                                        <?php foreach($config_work_time as $time) {  ?>
+                                                            <?php if ($time) { ?>
+                                                                <option value="<?php echo $time?>"><?php echo $time?></option>
+                                                            <?php } ?>
+                                                        <?php } ?>
                                                     </select>
                                                 </div>
                                             </div>
@@ -222,7 +224,7 @@
                                                     </div>
                                                     <div class="pickup__time">
                                                         <span>Время работы:</span>
-                                                        <div class="pickup__block">
+                                                        <div class="pickup__block" style="font-weight: unset !important">
                                                             <?php echo html_entity_decode(str_replace("<br>", "", $location['open'])); ?> 
 
                                                         </div>

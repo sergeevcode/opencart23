@@ -64,6 +64,7 @@ class ControllerSettingSetting extends Controller {
 		$data['entry_email'] = $this->language->get('entry_email');
 		$data['entry_telephone'] = $this->language->get('entry_telephone');
 		$data['entry_fax'] = $this->language->get('entry_fax');
+		$data['entry_work_time'] = $this->language->get('entry_work_time');
 		$data['entry_image'] = $this->language->get('entry_image');
 		$data['entry_open'] = $this->language->get('entry_open');
 		$data['entry_comment'] = $this->language->get('entry_comment');
@@ -635,6 +636,12 @@ class ControllerSettingSetting extends Controller {
 			$data['config_tax'] = $this->request->post['config_tax'];
 		} else {
 			$data['config_tax'] = $this->config->get('config_tax');
+		}
+		
+		if (isset($this->request->post['config_work_time'])) {
+			$data['config_work_time'] = $this->request->post['config_work_time'];
+		} else {
+			$data['config_work_time'] = $this->config->get('config_work_time');
 		}
 
 		if (isset($this->request->post['config_tax_default'])) {

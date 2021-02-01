@@ -27,6 +27,7 @@
 	<?php } ?>
 	    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
 	    <link rel="stylesheet" href="/assets/css/swiper-bundle.min.css">
+     	<link rel="stylesheet" href="/assets/css/bootstrap-datepicker.standalone.min.css">
 	    <link rel="stylesheet" href="/assets/css/slick.css">
 	    <link rel="stylesheet" href="/assets/css/style.min.css" />
 	<?php foreach ($styles as $style) { ?>

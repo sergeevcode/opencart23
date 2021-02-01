@@ -76,17 +76,16 @@
  
                             <div class="basket-total__block">
                                 <div class="basket-total__txt">Сумма:</div>
-                                <div class="basket-total__descr"><?php echo $summ; ?> руб.</div>
+                                <div class="basket-total__descr"><?php echo $totals[0]['text']?> руб.</div>
                             </div>  
  
                             <div class="basket-total__block">
                                 <div class="basket-total__txt">Скидка:</div>
                                 <div class="basket-total__descr"><?php echo $sale; ?> руб.</div>
                             </div>  
-                        </div>
-
+                        </div> 
                         <div class="basket-total__bottom">
-                            <div class="basket-total__sum">Итого: <span><?php echo $total_price?> руб.</span></div>
+                            <div class="basket-total__sum">Итого: <span><?php echo $totals[1]['text']?> руб.</span></div>
                             <a href="<?php echo $checkout; ?>" class="btn btn--fill basket-total__btn">Оформить заказ</a>
                         </div>
                     </div>

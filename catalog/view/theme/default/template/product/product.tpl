@@ -34,18 +34,32 @@
                                 </a>
                             </div> 
                         	<?php } ?>
+                            <?php foreach ($images as $image) { ?>
+                                <div class="photo-slider__item">
+                                    <a data-fancybox="gallery" src="<?php echo $image['popup']; ?>">
+                                        <img src="<?php echo $image['popup']; ?>"  title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
+                                    </a>
+                                </div> 
+                            <?php } ?>
+
                         </div>
                         <!-- /.photo-slider -->
 
 					    <?php if ($images) { ?>
-		                        <div class="photo-slider-nav">
-                            <?php foreach ($images as $image) { ?>
-		                            <div class="photo-slider-nav__item">
-		                                <img src="<?php echo $image['popup']; ?>"  title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
-		                            </div> 
+                        <div class="photo-slider-nav">
+                            <?php if ($thumb) { ?>
+                            <div class="photo-slider-nav__item"> 
+                                <img src="<?php echo $thumb; ?>"  title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>"> 
+                            </div> 
                             <?php } ?>
-		                        </div>
-		                        <!-- /.photo-slider-nav -->
+
+                            <?php foreach ($images as $image) { ?>
+	                            <div class="photo-slider-nav__item">
+	                                <img src="<?php echo $image['popup']; ?>"  title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>">
+	                            </div> 
+                            <?php } ?>
+                        </div>
+                        <!-- /.photo-slider-nav -->
                     	<?php } ?>
                     </div>
                     <!-- /.content-left -->
@@ -77,7 +91,7 @@
                         </div>
                         <!-- /.content-amount -->
 
-            			<?php if ($options && $stock > 0) { ?>
+            			<?php if ($options) { ?>
                         <div class="content-size">
                             <div class="content-size__title">Размер букета:</div>
                             <div class="content-size__wrap">
@@ -100,16 +114,16 @@
                         </div>
                         <!-- /.content-size -->
         				<?php } ?>
-                        <?php if ($stock > 0) {?>
                         <div class="content-basket">
+                        <?php if ($stock > 0) {?>
                         	<input type="hidden" name="product_id" value="<?php echo $product_id; ?>" />
                             <button id="button-cart" data-price="<?=($special) ? $special : $price ?>" data-link-id="basket-modal" data-image="<?php echo $thumb; ?>" data-name="<?php echo $heading_title; ?>" data-href="<?=$url?>" class="btn btn--dark btn-basket content-basket__btn">Добавить В корзину</button>
                             <button class="btn btn--fill content-basket__btn--buy" data-name="<?php echo $heading_title; ?>" data-href="<?=$url?>"  data-link-id="buyoneclick-modal">Купить в 1 клик</button>
+                        <?php } else { ?>
+                        <button class="btn btn--fill card__btn btn-not-available" disabled>Нет в наличии</button>
+                        <?php } ?>
                         </div>
                         <!-- /.content-basket -->
-                        <?php } else { ?>
-                        <div class="content-basket">Нет в наличии</div>
-                        <?php } ?>
                         <div class="content-share">
                             <div class="content-share__item">
                                 <a href="https://vk.com/share.php?url=<?=$url?>" target="_blank" class="share-vk"></a>
